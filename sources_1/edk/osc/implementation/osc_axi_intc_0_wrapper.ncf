@@ -1,0 +1,5 @@
+TIMEGRP "GRP_INTC_intr_sync_axi_intc_0" = FFS ("axi_intc_0/INTC_CORE_I/intr_sync*");
+TIMEGRP "GRP_INTC_intr_p1_axi_intc_0" = FFS ("axi_intc_0/INTC_CORE_I/intr_p1*");
+TIMESPEC "TS_sync_axi_intc_0" = TO "GRP_INTC_intr_sync_axi_intc_0" TIG;
+TIMESPEC "TS_intr_sync_p1_axi_intc_0" = FROM "GRP_INTC_intr_sync_axi_intc_0" TO "GRP_INTC_intr_p1_axi_intc_0" TIG;
+### No false path constraints for paths crossing between AXI clock and processor clock domains
