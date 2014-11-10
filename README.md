@@ -3,7 +3,7 @@ shertool-firm-osc-vhdl
 
 VHDL Code for the oscilloscope
 # Compilation
-- Create a new PlanAhead project
+- Create a new PlanAhead project and name it oscilloscope
 - Import the ucf from <repo>/oscilloscope.srcs/constrs_1/imports/new/atlys.ucf
 - Import the xmp (microblaze) from <repo>/oscilloscope.srcs/sources_1/edk/osc/osc.xmp
 - In project settings, change the top level to VHDL
