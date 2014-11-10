@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<DARoots Version="1" Minor="26">
+  <FileSet Name="constrs_out" Type="Constrs" RelSrcDir="$PRUNDIR/impl_1/.constrs">
+    <File Path="$PRUNDIR/impl_1/.constrs/atlys.ucf">
+      <FileInfo>
+        <Attr Name="UsedInSynthesis" Val="1"/>
+        <Attr Name="UsedInImplementation" Val="1"/>
+      </FileInfo>
+    </File>
+    <File Path="$PRUNDIR/impl_1/.constrs/osc_axi4lite_0_wrapper.ncf">
+      <FileInfo>
+        <Attr Name="UsedInImplementation" Val="1"/>
+      </FileInfo>
+    </File>
+    <File Path="$PRUNDIR/impl_1/.constrs/osc_axi_ethernetlite_0_wrapper.ncf">
+      <FileInfo>
+        <Attr Name="UsedInImplementation" Val="1"/>
+      </FileInfo>
+    </File>
+    <File Path="$PRUNDIR/impl_1/.constrs/osc_axi_intc_0_wrapper.ncf">
+      <FileInfo>
+        <Attr Name="UsedInImplementation" Val="1"/>
+      </FileInfo>
+    </File>
+    <File Path="$PRUNDIR/impl_1/.constrs/osc_clock_generator_0_wrapper.ncf">
+      <FileInfo>
+        <Attr Name="UsedInImplementation" Val="1"/>
+      </FileInfo>
+    </File>
+    <File Path="$PRUNDIR/impl_1/.constrs/osc_microblaze_0_dlmb_wrapper.ncf">
+      <FileInfo>
+        <Attr Name="UsedInImplementation" Val="1"/>
+      </FileInfo>
+    </File>
+    <File Path="$PRUNDIR/impl_1/.constrs/osc_microblaze_0_ilmb_wrapper.ncf">
+      <FileInfo>
+        <Attr Name="UsedInImplementation" Val="1"/>
+      </FileInfo>
+    </File>
+    <File Path="$PRUNDIR/impl_1/.constrs/osc_microblaze_0_wrapper.ncf">
+      <FileInfo>
+        <Attr Name="UsedInImplementation" Val="1"/>
+      </FileInfo>
+    </File>
+    <Config>
+      <Option Name="ConstrsType" Val="UCF"/>
+    </Config>
+  </FileSet>
+</DARoots>
