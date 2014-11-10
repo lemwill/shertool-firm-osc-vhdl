@@ -1,8 +1,5 @@
-oscilloscope.data/
 oscilloscope.srcs/
 oscilloscope.runs/
-oscilloscope.ppr
-sources_1/
-!sources_1/edk/osc.xmp
 planAhead.jou
 planAhead.log
+oscilloscope.data/wt/
