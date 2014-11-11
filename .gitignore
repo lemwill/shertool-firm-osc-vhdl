@@ -3,3 +3,6 @@ oscilloscope.runs/
 planAhead.jou
 planAhead.log
 oscilloscope.data/wt/
+oscilloscope.data/cache/
+.Xil/
+planAhead.ngc2edif.log
