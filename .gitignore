@@ -6,3 +6,6 @@ oscilloscope.data/wt/
 oscilloscope.data/cache/
 .Xil/
 planAhead.ngc2edif.log
+hs_err_pid1740.log
+hs_err_pid4048.log
+test.log
