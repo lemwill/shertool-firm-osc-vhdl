@@ -2,8 +2,11 @@
 <!--Product Version: PlanAhead v14.7 (64-bit)-->
 <Project Version="4" Minor="36">
 	<FileSet Dir="sources_1" File="fileset.xml"/>
-	<FileSet Dir="constrs_1" File="fileset.xml"/>
+	<FileSet Dir="Atlys" File="fileset.xml"/>
 	<FileSet Dir="sim_1" File="fileset.xml"/>
+	<FileSet Dir="OscilloscopeV1" File="fileset.xml"/>
+	<FileSet Dir="Atlys_ADC" File="fileset.xml"/>
+	<FileSet Dir="Adc" File="fileset.xml"/>
 	<RunSet Dir="runs" File="runs.xml"/>
 	<DefaultLaunch Dir="$PRUNDIR"/>
 	<DefaultPromote Dir="$PROMOTEDIR"/>

@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <DARoots Version="1" Minor="26">
-  <FileSet Name="constrs_in" Type="Constrs" RelSrcDir="$PSRCDIR/constrs_1">
-    <Filter Type="Constrs"/>
-    <File Path="$PSRCDIR/constrs_1/imports/new/atlys.ucf">
+  <FileSet Name="constrs_in" Type="Constrs" RelSrcDir="$PSRCDIR/Atlys_ADC">
+    <File Path="$PSRCDIR/Atlys_ADC/new/Atlys_ADC.ucf">
       <FileInfo>
         <Attr Name="UsedInSynthesis" Val="1"/>
         <Attr Name="UsedInImplementation" Val="1"/>
