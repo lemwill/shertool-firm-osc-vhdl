@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <DARoots Version="1" Minor="26">
-  <FileSet Name="constrs_in" Type="Constrs" RelSrcDir="$PSRCDIR/Atlys_ADC">
-    <File Path="$PSRCDIR/Atlys_ADC/new/Atlys_ADC.ucf">
+  <FileSet Name="constrs_in" Type="Constrs" RelSrcDir="$PSRCDIR/OscilloscopeV1">
+    <File Path="$PSRCDIR/OscilloscopeV1/new/adc.ucf">
       <FileInfo>
         <Attr Name="UsedInSynthesis" Val="1"/>
         <Attr Name="UsedInImplementation" Val="1"/>

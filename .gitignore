@@ -6,6 +6,7 @@
 .Xil/
 
 # PlanAhead temporary files
+*.sim/*
 *.runs/*
 *.srcs/sources_1/edk/*/__xps/*
 *.srcs/sources_1/edk/*/etc/*
@@ -25,3 +26,5 @@
 *.srcs/sources_1/edk/*/*.bxml
 *.srcs/sources_1/edk/*/*.make
 *.srcs/sources_1/edk/*/*.opt
+*.html
+webtalk_impact.xml

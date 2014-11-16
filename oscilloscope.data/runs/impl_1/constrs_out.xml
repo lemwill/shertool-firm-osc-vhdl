@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <DARoots Version="1" Minor="26">
   <FileSet Name="constrs_out" Type="Constrs" RelSrcDir="$PRUNDIR/impl_1/.constrs">
-    <File Path="$PRUNDIR/impl_1/.constrs/Atlys_ADC.ucf">
+    <File Path="$PRUNDIR/impl_1/.constrs/adc.ucf">
       <FileInfo>
         <Attr Name="UsedInSynthesis" Val="1"/>
         <Attr Name="UsedInImplementation" Val="1"/>

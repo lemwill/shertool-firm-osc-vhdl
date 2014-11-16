@@ -4,10 +4,10 @@
     <Filter Type="Srcs"/>
     <Config>
       <Option Name="DesignMode" Val="RTL"/>
-      <Option Name="TopModule" Val="top_adc"/>
+      <Option Name="TopModule" Val="ClockPrescaler"/>
       <Option Name="TopLib" Val="work"/>
-      <Option Name="TopArchitecture" Val="structure"/>
-      <Option Name="TopRTLFile" Val="$PSRCDIR/sources_1/new/top_adc.vhd"/>
+      <Option Name="TopArchitecture" Val="Behavioral"/>
+      <Option Name="TopRTLFile" Val="$PSRCDIR/sources_1/new/ClockPrescaler.vhd"/>
       <Option Name="TopAutoSet" Val="TRUE"/>
       <Option Name="SrcSet" Val="sources_1"/>
     </Config>

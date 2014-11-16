@@ -31,7 +31,9 @@ use IEEE.STD_LOGIC_1164.ALL;
 
 entity top_adc is
     Port ( Clock100MHz : in  STD_LOGIC;
-           Switch : in  STD_LOGIC_VECTOR (0 downto 0);
+           ADC_CH1D_P: in STD_LOGIC_VECTOR (7 downto 0);
+           ADC_CH1D_N: in STD_LOGIC_VECTOR (7 downto 0);
+           Switch : in  STD_LOGIC;
            Led : out  STD_LOGIC_VECTOR (3 downto 0));
 end top_adc;
 
@@ -43,10 +45,18 @@ COMPONENT ClockPrescaler
           Clock1Hz : out  STD_LOGIC);
 END COMPONENT;
 
+signal adc_sig : std_logic;
+signal switch_sig : std_logic;
+
+
 begin
 	u1 : ClockPrescaler PORT MAP(Clock100MHz => Clock100MHz,
 								 Reset => '0',
 								 Clock1Hz => Led(0));
 
-
+   --adc_sig <= ADC_CH1D_P(0);
+   Led(1) <= ADC_CH1D_P(0);
+   
+   --switch_sig <= Switch;
+   Led(2) <= Switch;
 end structure;
