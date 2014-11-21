@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <Runs Version="1" Minor="8">
-	<Run Id="synth_1" Type="Ft3:Synth" SrcSet="sources_1" Part="xc6slx45csg324-3" LaunchPart="xc6slx45csg324-3" ConstrsSet="OscilloscopeV1" Description="PlanAhead Defaults (XST defaults with hierarchy)" State="current" Dir="$PRUNDIR/synth_1" LaunchTime="1416102253">
+	<Run Id="synth_1" Type="Ft3:Synth" SrcSet="sources_1" Part="xc6slx45csg324-3" LaunchPart="xc6slx45csg324-3" ConstrsSet="OscilloscopeV1" Description="PlanAhead Defaults (XST defaults with hierarchy)" State="current" Dir="$PRUNDIR/synth_1" LaunchTime="1416256462">
 		<File Type="XST-NGC" Name="top_adc.ngc"/>
 		<File Type="RUN-STRAT" Name="$PDATADIR/runs/synth_1/synth_1.psg"/>
 		<File Type="XST-SRP" Name="top_adc.srp"/>
@@ -9,31 +9,6 @@
 		<File Type="PA-XSTPRJ" Name="top_adc.prj"/>
 		<File Type="RUN-CONSTRS" Name="$PDATADIR/runs/synth_1/constrs_in.xml"/>
 	</Run>
-	<Run Id="impl_1" Type="Ft2:EntireDesign" SynthRun="synth_1" Part="xc6slx45csg324-3" LaunchPart="xc6slx45csg324-3" ConstrsSet="OscilloscopeV1" Description="ISE Defaults, including packing registers in IOs off" State="current" Dir="$PRUNDIR/impl_1" LaunchTime="1416102267">
-		<File Type="PA-EDIF" Name="top_adc.edf"/>
-		<File Type="MAP-PSR" Name="top_adc.psr"/>
-		<File Type="PA-UCF" Name="top_adc.ucf"/>
-		<File Type="PAR-NCD" Name="top_adc_routed.ncd"/>
-		<File Type="PAR-PAD" Name="top_adc_routed_pad.txt"/>
-		<File Type="PAR-PAR" Name="top_adc_routed.par"/>
-		<File Type="PAR-UNR" Name="top_adc_routed.unroutes"/>
-		<File Type="BG-BIT" Name="top_adc.bit"/>
-		<File Type="BG-DRC" Name="top_adc.drc"/>
-		<File Type="PA-CONSTRSDIR" Name=".constrs"/>
-		<File Type="BG-BGN" Name="top_adc.bgn"/>
-		<File Type="TRCE-TWR" Name="top_adc.twr"/>
-		<File Type="TRCE-TWX" Name="top_adc.twx"/>
-		<File Type="XDL-XDL" Name="top_adc_routed.xdl"/>
-		<File Type="WBT-USG" Name="usage_statistics_webtalk.html"/>
-		<File Type="WBT-LOG" Name="webtalk.log"/>
-		<File Type="RUN-CONSTRS" Name="$PDATADIR/runs/impl_1/constrs_in.xml"/>
-		<File Type="RUN-STRAT" Name="$PDATADIR/runs/impl_1/impl_1.psg"/>
-		<File Type="NGDB-NGD" Name="top_adc.ngd"/>
-		<File Type="NGDB-BLD" Name="top_adc.bld"/>
-		<File Type="MAP-NCD" Name="top_adc.ncd"/>
-		<File Type="MAP-PCF" Name="top_adc.pcf"/>
-		<File Type="MAP-MRP" Name="top_adc.mrp"/>
-		<File Type="MAP-MAP" Name="top_adc.map"/>
-	</Run>
+	<Run Id="impl_1" Type="Ft2:EntireDesign" SynthRun="synth_1" Part="xc6slx45csg324-3" ConstrsSet="OscilloscopeV1" Description="ISE Defaults, including packing registers in IOs off" State="current"/>
 </Runs>
 

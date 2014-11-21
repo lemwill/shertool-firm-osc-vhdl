@@ -8,6 +8,7 @@
       </FileInfo>
     </File>
     <Config>
+      <Option Name="TargetConstrsFile" Val="$PSRCDIR/OscilloscopeV1/new/adc.ucf"/>
       <Option Name="ConstrsType" Val="UCF"/>
     </Config>
   </FileSet>

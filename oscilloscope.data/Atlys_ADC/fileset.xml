@@ -8,6 +8,7 @@
       </FileInfo>
     </File>
     <Config>
+      <Option Name="TargetConstrsFile" Val="$PSRCDIR/Atlys_ADC/new/Atlys_ADC.ucf"/>
       <Option Name="ConstrsType" Val="UCF"/>
     </Config>
   </FileSet>

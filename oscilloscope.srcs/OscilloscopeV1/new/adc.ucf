@@ -13,48 +13,48 @@ NET "Led<2>" LOC = "N14"; # Bank = 1, Pin name = IO_L53N_VREF, 	   Sch name = LD
 #NET <I/O_NAME> IOSTANDARD="LVDS_25";
 
 ## ADC LVDS CH1 Output
-NET "ADC_CH1D_P<0>"  LOC = "B2" INST "IBUFDS" DIFF_TERM = "TRUE" IOSTANDARD="LVDS_25"; # Bank = 0, Pin name = IO_L2P
-NET "ADC_CH1D_N<0>"  LOC = "A2" INST "IBUFDS" DIFF_TERM = "TRUE" IOSTANDARD="LVDS_25"; # Bank = 0, Pin name = IO_L2N
-NET "ADC_CH1D_P<1>"  LOC = "B3" DIFF_TERM = "TRUE" IOSTANDARD="LVDS_25"; # Bank = 0, Pin name = IO_L4P
-NET "ADC_CH1D_N<1>"  LOC = "A3" DIFF_TERM = "TRUE" IOSTANDARD="LVDS_25"; # Bank = 0, Pin name = IO_L4N
-NET "ADC_CH1D_P<2>"  LOC = "B4" DIFF_TERM = "TRUE" IOSTANDARD="LVDS_25"; # Bank = 0, Pin name = IO_L5P
-NET "ADC_CH1D_N<2>"  LOC = "A4" DIFF_TERM = "TRUE" IOSTANDARD="LVDS_25"; # Bank = 0, Pin name = IO_L5N
-NET "ADC_CH1D_P<3>"  LOC = "C5" DIFF_TERM = "TRUE" IOSTANDARD="LVDS_25"; # Bank = 0, Pin name = IO_L6P
-NET "ADC_CH1D_N<3>"  LOC = "A5" DIFF_TERM = "TRUE" IOSTANDARD="LVDS_25"; # Bank = 0, Pin name = IO_L6N
-NET "ADC_CH1D_P<4>"  LOC = "D6" DIFF_TERM = "TRUE" IOSTANDARD="LVDS_25"; # Bank = 0, Pin name = IO_L3P
-NET "ADC_CH1D_N<4>"  LOC = "C6" DIFF_TERM = "TRUE" IOSTANDARD="LVDS_25"; # Bank = 0, Pin name = IO_L3N
-NET "ADC_CH1D_P<5>"  LOC = "B6" DIFF_TERM = "TRUE" IOSTANDARD="LVDS_25"; # Bank = 0, Pin name = IO_L8P
-NET "ADC_CH1D_N<5>"  LOC = "A6" DIFF_TERM = "TRUE" IOSTANDARD="LVDS_25"; # Bank = 0, Pin name = IO_L8N_VREF
-NET "ADC_CH1D_P<6>"  LOC = "C7" DIFF_TERM = "TRUE" IOSTANDARD="LVDS_25"; # Bank = 0, Pin name = IO_L10P
-NET "ADC_CH1D_N<6>"  LOC = "A7" DIFF_TERM = "TRUE" IOSTANDARD="LVDS_25"; # Bank = 0, Pin name = IO_L10N
-NET "ADC_CH1D_P<7>"  LOC = "D8" DIFF_TERM = "TRUE" IOSTANDARD="LVDS_25"; # Bank = 0, Pin name = IO_L11P
-NET "ADC_CH1D_N<7>"  LOC = "C8" DIFF_TERM = "TRUE" IOSTANDARD="LVDS_25"; # Bank = 0, Pin name = IO_L11N
+NET "ADC_CH1D_P<0>"  LOC = "B2"; # Bank = 0, Pin name = IO_L2P
+NET "ADC_CH1D_N<0>"  LOC = "A2"; # Bank = 0, Pin name = IO_L2N
+NET "ADC_CH1D_P<1>"  LOC = "B3"; # Bank = 0, Pin name = IO_L4P
+NET "ADC_CH1D_N<1>"  LOC = "A3"; # Bank = 0, Pin name = IO_L4N
+NET "ADC_CH1D_P<2>"  LOC = "B4"; # Bank = 0, Pin name = IO_L5P
+NET "ADC_CH1D_N<2>"  LOC = "A4"; # Bank = 0, Pin name = IO_L5N
+NET "ADC_CH1D_P<3>"  LOC = "C5"; # Bank = 0, Pin name = IO_L6P
+NET "ADC_CH1D_N<3>"  LOC = "A5"; # Bank = 0, Pin name = IO_L6N
+NET "ADC_CH1D_P<4>"  LOC = "D6"; # Bank = 0, Pin name = IO_L3P
+NET "ADC_CH1D_N<4>"  LOC = "C6"; # Bank = 0, Pin name = IO_L3N
+NET "ADC_CH1D_P<5>"  LOC = "B6"; # Bank = 0, Pin name = IO_L8P
+NET "ADC_CH1D_N<5>"  LOC = "A6"; # Bank = 0, Pin name = IO_L8N_VREF
+NET "ADC_CH1D_P<6>"  LOC = "C7"; # Bank = 0, Pin name = IO_L10P
+NET "ADC_CH1D_N<6>"  LOC = "A7"; # Bank = 0, Pin name = IO_L10N
+NET "ADC_CH1D_P<7>"  LOC = "D8"; # Bank = 0, Pin name = IO_L11P
+NET "ADC_CH1D_N<7>"  LOC = "C8"; # Bank = 0, Pin name = IO_L11N
 
 ## ADC LVDS CH2 Output
-NET "ADC_CH2D_P<0>"  LOC = "C13" DIFF_TERM = "TRUE" IOSTANDARD="LVDS_25"; # Bank = 0, Pin name = IO_L50P
-NET "ADC_CH2D_N<0>"  LOC = "A13" DIFF_TERM = "TRUE" IOSTANDARD="LVDS_25"; # Bank = 0, Pin name = IO_L50N
-NET "ADC_CH2D_P<1>"  LOC = "B14" DIFF_TERM = "TRUE" IOSTANDARD="LVDS_25"; # Bank = 0, Pin name = IO_L62P
-NET "ADC_CH2D_N<1>"  LOC = "A14" DIFF_TERM = "TRUE" IOSTANDARD="LVDS_25"; # Bank = 0, Pin name = IO_L62N_VREF
-NET "ADC_CH2D_P<2>"  LOC = "D11" DIFF_TERM = "TRUE" IOSTANDARD="LVDS_25"; # Bank = 0, Pin name = IO_L36P_GCLK15
-NET "ADC_CH2D_N<2>"  LOC = "C11" DIFF_TERM = "TRUE" IOSTANDARD="LVDS_25"; # Bank = 0, Pin name = IO_L36N_GCLK14
-NET "ADC_CH2D_P<3>"  LOC = "B12" DIFF_TERM = "TRUE" IOSTANDARD="LVDS_25"; # Bank = 0, Pin name = IO_L41P
-NET "ADC_CH2D_N<3>"  LOC = "A12" DIFF_TERM = "TRUE" IOSTANDARD="LVDS_25"; # Bank = 0, Pin name = IO_L41N
-NET "ADC_CH2D_P<4>"  LOC = "B11" DIFF_TERM = "TRUE" IOSTANDARD="LVDS_25"; # Bank = 0, Pin name = IO_L39P
-NET "ADC_CH2D_N<4>"  LOC = "A11" DIFF_TERM = "TRUE" IOSTANDARD="LVDS_25"; # Bank = 0, Pin name = O_L39N
-NET "ADC_CH2D_P<5>"  LOC = "C10" DIFF_TERM = "TRUE" IOSTANDARD="LVDS_25"; # Bank = 0, Pin name = IO_L37P_GCLK13
-NET "ADC_CH2D_N<5>"  LOC = "A10" DIFF_TERM = "TRUE" IOSTANDARD="LVDS_25"; # Bank = 0, Pin name = IO_L37N_GCLK12
-NET "ADC_CH2D_P<6>"  LOC = "G9"  DIFF_TERM = "TRUE" IOSTANDARD="LVDS_25"; # Bank = 0, Pin name = IO_L38P
-NET "ADC_CH2D_N<6>"  LOC = "F9"  DIFF_TERM = "TRUE" IOSTANDARD="LVDS_25"; # Bank = 0, Pin name = IO_L38N_VREF
-NET "ADC_CH2D_P<7>"  LOC = "D9"  DIFF_TERM = "TRUE" IOSTANDARD="LVDS_25"; # Bank = 0, Pin name = IO_L34P_GCLK19
-NET "ADC_CH2D_N<7>"  LOC = "C9"  DIFF_TERM = "TRUE" IOSTANDARD="LVDS_25"; # Bank = 0, Pin name = IO_L34N_GCLK18
+NET "ADC_CH2D_P<0>"  LOC = "C13"; # Bank = 0, Pin name = IO_L50P
+NET "ADC_CH2D_N<0>"  LOC = "A13"; # Bank = 0, Pin name = IO_L50N
+NET "ADC_CH2D_P<1>"  LOC = "B14"; # Bank = 0, Pin name = IO_L62P
+NET "ADC_CH2D_N<1>"  LOC = "A14"; # Bank = 0, Pin name = IO_L62N_VREF
+NET "ADC_CH2D_P<2>"  LOC = "D11"; # Bank = 0, Pin name = IO_L36P_GCLK15
+NET "ADC_CH2D_N<2>"  LOC = "C11"; # Bank = 0, Pin name = IO_L36N_GCLK14
+NET "ADC_CH2D_P<3>"  LOC = "B12"; # Bank = 0, Pin name = IO_L41P
+NET "ADC_CH2D_N<3>"  LOC = "A12"; # Bank = 0, Pin name = IO_L41N
+NET "ADC_CH2D_P<4>"  LOC = "B11"; # Bank = 0, Pin name = IO_L39P
+NET "ADC_CH2D_N<4>"  LOC = "A11"; # Bank = 0, Pin name = O_L39N
+NET "ADC_CH2D_P<5>"  LOC = "C10"; # Bank = 0, Pin name = IO_L37P_GCLK13
+NET "ADC_CH2D_N<5>"  LOC = "A10"; # Bank = 0, Pin name = IO_L37N_GCLK12
+NET "ADC_CH2D_P<6>"  LOC = "G9" ; # Bank = 0, Pin name = IO_L38P
+NET "ADC_CH2D_N<6>"  LOC = "F9" ; # Bank = 0, Pin name = IO_L38N_VREF
+NET "ADC_CH2D_P<7>"  LOC = "D9" ; # Bank = 0, Pin name = IO_L34P_GCLK19
+NET "ADC_CH2D_N<7>"  LOC = "C9" ; # Bank = 0, Pin name = IO_L34N_GCLK18
 
 ## ADC Clock pins
-NET "ADC_DCLK_P"   LOC = "B9"  DIFF_TERM = "TRUE" IOSTANDARD="LVDS_25";  # Bank = 0, Pin name = IO_L35P_GCLK17
-NET "ADC_DCLK_N"   LOC = "A9"  DIFF_TERM = "TRUE" IOSTANDARD="LVDS_25";  # Bank = 0, Pin name = IO_L35N_GCLK16
+NET "ADC_DCLK_P"   LOC = "B9" ;  # Bank = 0, Pin name = IO_L35P_GCLK17
+NET "ADC_DCLK_N"   LOC = "A9" ;  # Bank = 0, Pin name = IO_L35N_GCLK16
 
 ## ADC ?? pins
-NET "ADC_OUT_R_P"  LOC = "B8"  DIFF_TERM = "TRUE" IOSTANDARD="LVDS_25"; # Bank = 0, Pin name = IO_L33P
-NET "ADC_OUT_R_N"  LOC = "A8"  DIFF_TERM = "TRUE" IOSTANDARD="LVDS_25"; # Bank = 0, Pin name = IO_L33N
+NET "ADC_OUT_R_P"  LOC = "B8" ; # Bank = 0, Pin name = IO_L33P
+NET "ADC_OUT_R_N"  LOC = "A8" ; # Bank = 0, Pin name = IO_L33N
 
 
 #------------------------ Bank 1 ---------------------------
