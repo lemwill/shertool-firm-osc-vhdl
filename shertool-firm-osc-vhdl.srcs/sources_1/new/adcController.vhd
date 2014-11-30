@@ -57,7 +57,7 @@ begin
             RAM_Addr <= "0000000000000000" & std_logic_vector(address);
             RAM_Dout <= "0000000000000000" & std_logic_vector(data);
             address <= address + 4;
-            data <= data + 1;
+            data <= data + 4;
             
          end if;
       end process RamProc;
