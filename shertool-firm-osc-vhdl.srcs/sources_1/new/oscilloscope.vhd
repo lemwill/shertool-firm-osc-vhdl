@@ -11,18 +11,29 @@ entity Oscilloscope is
     RS232_Uart_1_sout : out std_logic;
     RS232_Uart_1_sin : in std_logic;
     DacSclk: out std_logic;
-    DacSync: out std_logic;
-    DacRst: out std_logic;
+    DacSync: inout std_logic;
+    DacRst: inout std_logic;
+    DacEn: inout std_logic;
     DacDin: out std_logic;
-    Ch1PgaCs: out std_logic;
+    Ch1PgaCs: inout std_logic;
     Ch2PgaMosi: out std_logic;
     Ch2PgaMiso: in std_logic;
     Ch2PgaSck: out std_logic;
-    Ch2PgaCs: out std_logic;
-    AdcCsc: out std_logic;
-    AdcRst: out std_logic;
+    Ch2PgaCs: inout std_logic;
+    AdcCsc: inout std_logic;
+    AdcRst: inout std_logic;
     AdcSclk: out std_logic;
-    AdcSda: out std_logic
+    AdcSda: out std_logic;
+    AdcCal: inout std_logic;
+    AdcCalActive: inout std_logic;
+    AdcPd: inout std_logic;
+    AdcPdq: inout std_logic;
+    Ch1Relay_N: inout std_logic;
+    Ch1AcCoup_N: inout std_logic;
+    Ch2Relay_N: inout std_logic;
+    Ch2AcCoup_N: inout std_logic;
+    Ldac: inout std_logic
+    
   );
 end Oscilloscope;
 
@@ -71,7 +82,8 @@ architecture STRUCTURE of Oscilloscope is
       axi_spi_dac_SS_pin : out std_logic;
       axi_spi_adc_SCK_pin : out std_logic;
       axi_spi_adc_MOSI_pin : out std_logic;
-      axi_spi_adc_SS_pin : out std_logic
+      axi_spi_adc_SS_pin : out std_logic;
+      axi_gpio_0_GPIO_IO_pin : inout std_logic_vector(15 downto 0)
 
     );
   end component;
@@ -104,14 +116,27 @@ begin
       axi_spi_pga_SCK_pin => Ch2PgaSck,
       axi_spi_pga_MOSI_pin => Ch2PgaMosi,
       axi_spi_pga_MISO_pin => Ch2PgaMiso,
-      axi_spi_pga_SS_pin(0) => Ch1PgaCs,
-      axi_spi_pga_SS_pin(1) => Ch2PgaCs,
       axi_spi_dac_SCK_pin => DacSclk,
       axi_spi_dac_MOSI_pin => DacDin,
-      axi_spi_dac_SS_pin => DacSync,
       axi_spi_adc_SCK_pin => AdcSclk,
-      axi_spi_adc_MOSI_pin => AdcSda,
-      axi_spi_adc_SS_pin => AdcCsc
+      axi_spi_adc_MOSI_pin => AdcSda,         
+      axi_gpio_0_GPIO_IO_pin(0) => AdcRst,            
+      axi_gpio_0_GPIO_IO_pin(1) => AdcCal,            
+      axi_gpio_0_GPIO_IO_pin(2) => AdcCalActive,            
+      axi_gpio_0_GPIO_IO_pin(3) => AdcPd,            
+      axi_gpio_0_GPIO_IO_pin(4) => AdcPdq,            
+      axi_gpio_0_GPIO_IO_pin(5) => Ch1Relay_N,            
+      axi_gpio_0_GPIO_IO_pin(6) => Ch1AcCoup_N,            
+      axi_gpio_0_GPIO_IO_pin(7) => Ch2Relay_N,            
+      axi_gpio_0_GPIO_IO_pin(8) => Ch2AcCoup_N,            
+      axi_gpio_0_GPIO_IO_pin(9) => Ldac,            
+      axi_gpio_0_GPIO_IO_pin(10) => DacSync,            
+      axi_gpio_0_GPIO_IO_pin(11) => DacRst,            
+      axi_gpio_0_GPIO_IO_pin(12) => Ch1PgaCs,
+      axi_gpio_0_GPIO_IO_pin(13) => Ch2PgaCs,
+      axi_gpio_0_GPIO_IO_pin(14) => DacEn,
+      axi_gpio_0_GPIO_IO_pin(15) => AdcCsc
+      
     );
     
     adcController_i: AdcController
@@ -130,7 +155,5 @@ begin
                                                 Reset => '0',
                                                 Clock1Hz => clock1Hz);
                
-   AdcRst <= '0';
-   DacRst <= '0';
 
 end architecture STRUCTURE;

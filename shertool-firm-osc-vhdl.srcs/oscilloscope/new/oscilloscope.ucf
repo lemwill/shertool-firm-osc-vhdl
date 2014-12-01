@@ -17,11 +17,18 @@ NET "DAC_SCLK" LOC = "E16"| IOSTANDARD = LVTTL; # Bank = 1, Pin name = IO_L33P_A
 NET "DAC_SYNC" LOC = "E18"| IOSTANDARD = LVTTL; # Bank = 1, Pin name = IO_L33N_A14
 NET "DAC_RST" LOC = "D17"| IOSTANDARD = LVTTL; # Bank = 1, Pin name = IO_L31P_A19
 NET "DAC_DIN" LOC = "D18"| IOSTANDARD = LVTTL; # Bank = 1, Pin name = IO_L31N_A18
+NET "DAC_LDAC" LOC = "C17" | IOSTANDARD = LVTTL;
+NET "DAC_EN" LOC = "C18" | IOSTANDARD = LVTTL;
+
+NET "CH1_RELAY" LOC = "F14" | IOSTANDARD = LVTTL;
+NET "CH2_RELAY" LOC = "G14" | IOSTANDARD = LVTTL;
+NET "CH1_ACCOUP" LOC = "F18" | IOSTANDARD = LVTTL;
+NET "CH2_ACCOUP" LOC = "G16" | IOSTANDARD = LVTTL;
 
 NET "CH1_PGA_CS"   LOC = "F17"| IOSTANDARD = LVTTL; # Bank = 1, Pin name = IO_L35P_A11
 NET "CH2_PGA_MOSI" LOC = "H14"| IOSTANDARD = LVTTL; # Bank = 1, Pin name = IO_L37P_A7
 NET "CH2_PGA_MISO" LOC = "H15"| IOSTANDARD = LVTTL; # Bank = 1, Pin name = IO_L37P_A7
-NET "CH2_PGA_SCK"  LOC = "H16"| IOSTANDARD = LVTTL; # Bank = 1, Pin name = IO_L37N_A6
+NET "CH2_PGA_SCK"  LOC = "N15"| IOSTANDARD = LVTTL; # Bank = 1, Pin name = IO_L37N_A6
 NET "CH2_PGA_CS"   LOC = "G18"| IOSTANDARD = LVTTL; # Bank = 1, Pin name = IO_L38N_A4
 
 
@@ -99,9 +106,9 @@ NET "ADC_OUT_R_N"  LOC = "A8" | IOSTANDARD = LVDS_25; # Bank = 0, Pin name = IO_
 
 #------------------------ Bank 1 ---------------------------
 ## ADC Control pins
-#NET "ADC_CAL_ACTIVE"  LOC = "J18"; # Bank = 1, Pin name = IO_L44N_A2_M1DQ7
-#NET "ADC_CAL"         LOC = "K17"; # Bank = 1, Pin name = IO_L45P_A1_M1LDQS
-#NET "ADC_PDQ"  		  LOC = "K18"; # Bank = 1, Pin name = IO_L45N_A0_M1LDQSN
+NET "ADC_CAL_ACTIVE"  LOC = "J18" | IOSTANDARD = LVTTL; # Bank = 1, Pin name = IO_L44N_A2_M1DQ7
+NET "ADC_CAL"         LOC = "K17" | IOSTANDARD = LVTTL; # Bank = 1, Pin name = IO_L45P_A1_M1LDQS
+NET "ADC_PDQ"  		  LOC = "K18" | IOSTANDARD = LVTTL; # Bank = 1, Pin name = IO_L45N_A0_M1LDQSN
 NET "FPGA_ADC_PD"         LOC = "L17" | IOSTANDARD = LVTTL; # Bank = 1, Pin name = IO_L46P_FCS_B_M1DQ2
 NET "FPGA_ADC_CSC"		  LOC = "L18" | IOSTANDARD = LVTTL; # Bank = 1, Pin name = IO_L46N_FOE_B_M1DQ3
 NET "FPGA_ADC_RST"		  LOC = "M18" | IOSTANDARD = LVTTL; # Bank = 1, Pin name = IO_L47N_LDC_M1DQ1

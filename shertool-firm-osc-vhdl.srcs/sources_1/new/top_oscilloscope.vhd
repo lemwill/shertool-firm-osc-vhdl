@@ -14,19 +14,21 @@ use work.Types.all;
 entity osc_microblaze_stub is
   port (
     DAC_SCLK:        out STD_LOGIC;
-    DAC_SYNC:        out STD_LOGIC;
-    DAC_RST:         out STD_LOGIC;
+    DAC_SYNC:        inout STD_LOGIC;    
+    DAC_EN:          inout STD_LOGIC;
+    DAC_RST:         inout STD_LOGIC;
     DAC_DIN:         out STD_LOGIC;
-    CH1_PGA_CS:      out STD_LOGIC;
+    DAC_LDAC:        inout STD_LOGIC;
+    CH1_PGA_CS:      inout STD_LOGIC;
     CH2_PGA_MOSI:    out STD_LOGIC;
     CH2_PGA_MISO:    in  STD_LOGIC;
     CH2_PGA_SCK:     out STD_LOGIC;
-    CH2_PGA_CS:      out STD_LOGIC;
-    FPGA_ADC_CSC:    out STD_LOGIC;
-    FPGA_ADC_RST:    out STD_LOGIC;
+    CH2_PGA_CS:      inout STD_LOGIC;
+    FPGA_ADC_CSC:    inout STD_LOGIC;
+    FPGA_ADC_RST:    inout STD_LOGIC;
     FPGA_ADC_SCLK:   out STD_LOGIC;
     FPGA_ADC_SDA:    out STD_LOGIC;
-    FPGA_ADC_PD:     out STD_LOGIC;    
+    FPGA_ADC_PD:     inout STD_LOGIC;    
     ADC_DATA_P:      in BYTE_ARRAY (1 downto 0);
     ADC_DATA_N:      in BYTE_ARRAY (1 downto 0);
     ADC_DCLK_P:      in STD_LOGIC; 
@@ -46,7 +48,14 @@ entity osc_microblaze_stub is
     TEST_CLK_OUT_P:  out STD_LOGIC;
     TEST_CLK_OUT_N:  out STD_LOGIC;
     UART_TX : out std_logic;
-    UART_RX : in std_logic
+    UART_RX : in std_logic;
+    CH1_RELAY:        inout STD_LOGIC;
+    CH2_RELAY:        inout STD_LOGIC;
+    CH1_ACCOUP:        inout STD_LOGIC;
+    CH2_ACCOUP:        inout STD_LOGIC;
+    ADC_CAL_ACTIVE:        inout STD_LOGIC;
+    ADC_CAL:        inout STD_LOGIC;
+    ADC_PDQ:        inout STD_LOGIC    
   );
 end osc_microblaze_stub;
  
@@ -59,18 +68,28 @@ COMPONENT Oscilloscope
       RS232_Uart_1_sin : in std_logic;
       RS232_Uart_1_sout : out std_logic;
       DacSclk: out std_logic;
-      DacSync: out std_logic;
-      DacRst: out std_logic;
+      DacSync: inout std_logic;
+      DacRst: inout std_logic;
+      DacEn: inout std_logic;
       DacDin: out std_logic;
-      Ch1PgaCs: out std_logic;
+      Ch1PgaCs: inout std_logic;
       Ch2PgaMosi: out std_logic;
       Ch2PgaMiso: in std_logic;
       Ch2PgaSck: out std_logic;
-      Ch2PgaCs: out std_logic;
-      AdcCsc: out std_logic;
-      AdcRst: out std_logic;
+      Ch2PgaCs: inout std_logic;
+      AdcCsc: inout std_logic;
+      AdcRst: inout std_logic;
       AdcSclk: out std_logic;
-      AdcSda: out std_logic
+      AdcSda: out std_logic;
+      AdcCal: inout std_logic;
+      AdcCalActive: inout std_logic;
+      AdcPd: inout std_logic;
+      AdcPdq: inout std_logic;
+      Ch1Relay_N: inout std_logic;
+      Ch1AcCoup_N: inout std_logic;
+      Ch2Relay_N: inout std_logic;
+      Ch2AcCoup_N: inout std_logic;
+      Ldac: inout std_logic
     );
   END COMPONENT;
 
@@ -98,8 +117,9 @@ begin
       RS232_Uart_1_sout=>UART_TX,
       RS232_Uart_1_sin=>UART_RX,
       DacSclk => DAC_SCLK,
-      DacSync =>DAC_SYNC,
+      DacSync => DAC_SYNC,
       DacRst => DAC_RST,
+      DacEn => DAC_EN,
       DacDin => DAC_DIN,
       Ch1PgaCs => CH1_PGA_CS,
       Ch2PgaMiso => CH2_PGA_MISO,
@@ -109,7 +129,16 @@ begin
       AdcCsc =>FPGA_ADC_CSC,
       AdcRst => FPGA_ADC_RST,
       AdcSclk =>FPGA_ADC_SCLK,
-      AdcSda => FPGA_ADC_SDA
+      AdcSda => FPGA_ADC_SDA,
+      AdcCal => ADC_CAL,
+      AdcCalActive => ADC_CAL_ACTIVE,
+      AdcPd => FPGA_ADC_PD,
+      AdcPdq => ADC_PDQ,
+      Ch1Relay_N => CH1_RELAY,
+      Ch1AcCoup_N => CH1_ACCOUP,
+      Ch2Relay_N => CH2_RELAY,
+      Ch2AcCoup_N => CH2_ACCOUP,
+      Ldac => DAC_LDAC
     );
     
     --------------- ADC DATA ------------------
@@ -203,6 +232,4 @@ begin
        IB => SYNC_IN_N
     );
                
-    FPGA_ADC_PD <= '1';
-
 end architecture STRUCTURE;

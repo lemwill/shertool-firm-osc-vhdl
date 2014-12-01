@@ -14,6 +14,17 @@
  PORT RS232_Uart_1_sout = RS232_Uart_1_sout, DIR = O
  PORT RS232_Uart_1_sin = RS232_Uart_1_sin, DIR = I
  PORT RESET = RESET, DIR = I, SIGIS = RST, RST_POLARITY = 0
+ PORT axi_spi_pga_MOSI_pin = axi_spi_pga_MOSI_O, DIR = O
+ PORT axi_spi_pga_SS_pin = axi_spi_pga_SS_O, DIR = O, VEC = [1:0]
+ PORT axi_spi_adc_SCK_pin = axi_spi_adc_SCK_O, DIR = O
+ PORT axi_spi_adc_SS_pin = axi_spi_adc_SS_O, DIR = O
+ PORT axi_spi_dac_SCK_pin = axi_spi_dac_SCK_O, DIR = O
+ PORT axi_spi_dac_MOSI_pin = axi_spi_dac_MOSI_O, DIR = O
+ PORT axi_spi_dac_SS_pin = axi_spi_dac_SS_O, DIR = O
+ PORT axi_spi_adc_MOSI_pin = axi_spi_adc_MOSI_O, DIR = O
+ PORT CLK = net_CLK, DIR = I, SIGIS = CLK, CLK_FREQ = 100000000
+ PORT axi_spi_pga_SCK_pin = axi_spi_pga_SCK_O, DIR = O
+ PORT axi_spi_pga_MISO_pin = net_axi_spi_pga_MISO_pin, DIR = I
  PORT axi_bram_ctrl_0_bram_block_1_BRAM_Rst_B_pin = axi_bram_ctrl_0_bram_block_1_BRAM_Rst_B, DIR = I
  PORT axi_bram_ctrl_0_bram_block_1_BRAM_Clk_B_pin = axi_bram_ctrl_0_bram_block_1_BRAM_Clk_B, DIR = I, SIGIS = CLK
  PORT axi_bram_ctrl_0_bram_block_1_BRAM_EN_B_pin = axi_bram_ctrl_0_bram_block_1_BRAM_EN_B, DIR = I
@@ -21,17 +32,7 @@
  PORT axi_bram_ctrl_0_bram_block_1_BRAM_Addr_B_pin = axi_bram_ctrl_0_bram_block_1_BRAM_Addr_B, DIR = I, VEC = [0:31]
  PORT axi_bram_ctrl_0_bram_block_1_BRAM_Din_B_pin = axi_bram_ctrl_0_bram_block_1_BRAM_Din_B, DIR = O, VEC = [0:31]
  PORT axi_bram_ctrl_0_bram_block_1_BRAM_Dout_B_pin = axi_bram_ctrl_0_bram_block_1_BRAM_Dout_B, DIR = I, VEC = [0:31]
- PORT axi_spi_pga_SCK_pin = axi_spi_pga_SCK, DIR = O
- PORT axi_spi_pga_MISO_pin = axi_spi_pga_MISO, DIR = I
- PORT axi_spi_pga_MOSI_pin = axi_spi_pga_MOSI, DIR = O
- PORT axi_spi_pga_SS_pin = axi_spi_pga_SS, DIR = O, VEC = [1:0]
- PORT axi_spi_adc_SCK_pin = axi_spi_adc_SCK, DIR = O
- PORT axi_spi_adc_SS_pin = axi_spi_adc_SS, DIR = O
- PORT axi_spi_dac_SCK_pin = axi_spi_dac_SCK, DIR = O
- PORT axi_spi_dac_MOSI_pin = axi_spi_dac_MOSI, DIR = O
- PORT axi_spi_dac_SS_pin = axi_spi_dac_SS, DIR = O
- PORT axi_spi_adc_MOSI_pin = axi_spi_adc_MOSI, DIR = O
- PORT CLK = net_CLK, DIR = I, SIGIS = CLK, CLK_FREQ = 100000000
+ PORT axi_gpio_0_GPIO_IO_pin = axi_gpio_0_GPIO_IO, DIR = IO, VEC = [15:0]
 
 
 BEGIN proc_sys_reset
@@ -69,7 +70,7 @@ BEGIN lmb_bram_if_cntlr
  PARAMETER INSTANCE = microblaze_0_i_bram_ctrl
  PARAMETER HW_VER = 3.10.c
  PARAMETER C_BASEADDR = 0x00000000
- PARAMETER C_HIGHADDR = 0x0000FFFF
+ PARAMETER C_HIGHADDR = 0x0000ffff
  BUS_INTERFACE SLMB = microblaze_0_ilmb
  BUS_INTERFACE BRAM_PORT = microblaze_0_i_bram_ctrl_2_microblaze_0_bram_block
 END
@@ -85,7 +86,7 @@ BEGIN lmb_bram_if_cntlr
  PARAMETER INSTANCE = microblaze_0_d_bram_ctrl
  PARAMETER HW_VER = 3.10.c
  PARAMETER C_BASEADDR = 0x00000000
- PARAMETER C_HIGHADDR = 0x0000FFFF
+ PARAMETER C_HIGHADDR = 0x0000ffff
  BUS_INTERFACE SLMB = microblaze_0_dlmb
  BUS_INTERFACE BRAM_PORT = microblaze_0_d_bram_ctrl_2_microblaze_0_bram_block
 END
@@ -182,6 +183,75 @@ BEGIN axi_uartlite
  PORT RX = RS232_Uart_1_sin
 END
 
+BEGIN axi_spi
+ PARAMETER INSTANCE = axi_spi_pga
+ PARAMETER HW_VER = 1.02.a
+ PARAMETER C_NUM_SS_BITS = 2
+ PARAMETER C_FIFO_EXIST = 0
+ PARAMETER C_NUM_TRANSFER_BITS = 32
+ PARAMETER C_BASEADDR = 0x40a00000
+ PARAMETER C_HIGHADDR = 0x40a0ffff
+ BUS_INTERFACE S_AXI = axi4lite_0
+ PORT S_AXI_ACLK = clk_100_0000MHz
+ PORT SCK_O = axi_spi_pga_SCK_O
+ PORT MISO_I = net_axi_spi_pga_MISO_pin
+ PORT MOSI_O = axi_spi_pga_MOSI_O
+ PORT SS_O = axi_spi_pga_SS_O
+END
+
+BEGIN axi_spi
+ PARAMETER INSTANCE = axi_spi_adc
+ PARAMETER HW_VER = 1.02.a
+ PARAMETER C_FIFO_EXIST = 0
+ PARAMETER C_NUM_TRANSFER_BITS = 32
+ PARAMETER C_BASEADDR = 0x40a40000
+ PARAMETER C_HIGHADDR = 0x40a4ffff
+ BUS_INTERFACE S_AXI = axi4lite_0
+ PORT S_AXI_ACLK = clk_100_0000MHz
+ PORT MOSI_O = axi_spi_adc_MOSI_O
+ PORT SCK_O = axi_spi_adc_SCK_O
+ PORT SS_O = axi_spi_adc_SS_O
+END
+
+BEGIN axi_spi
+ PARAMETER INSTANCE = axi_spi_dac
+ PARAMETER HW_VER = 1.02.a
+ PARAMETER C_FIFO_EXIST = 0
+ PARAMETER C_NUM_TRANSFER_BITS = 32
+ PARAMETER C_BASEADDR = 0x40a80000
+ PARAMETER C_HIGHADDR = 0x40a8ffff
+ BUS_INTERFACE S_AXI = axi4lite_0
+ PORT S_AXI_ACLK = clk_100_0000MHz
+ PORT MOSI_O = axi_spi_dac_MOSI_O
+ PORT SCK_O = axi_spi_dac_SCK_O
+ PORT SS_O = axi_spi_dac_SS_O
+END
+
+BEGIN lmb_bram_if_cntlr
+ PARAMETER INSTANCE = microblaze_0_d_bram_ctrl_1
+ PARAMETER HW_VER = 3.10.c
+ PARAMETER C_BASEADDR = 0x00010000
+ PARAMETER C_HIGHADDR = 0x0001ffff
+ BUS_INTERFACE SLMB = microblaze_0_dlmb
+ BUS_INTERFACE BRAM_PORT = microblaze_0_d_bram_ctrl_1_BRAM_PORT
+END
+
+BEGIN lmb_bram_if_cntlr
+ PARAMETER INSTANCE = microblaze_0_i_bram_ctrl_1
+ PARAMETER HW_VER = 3.10.c
+ PARAMETER C_BASEADDR = 0x00010000
+ PARAMETER C_HIGHADDR = 0x0001ffff
+ BUS_INTERFACE SLMB = microblaze_0_ilmb
+ BUS_INTERFACE BRAM_PORT = microblaze_0_i_bram_ctrl_1_BRAM_PORT
+END
+
+BEGIN bram_block
+ PARAMETER INSTANCE = microblaze_0_bram_block_1
+ PARAMETER HW_VER = 1.00.a
+ BUS_INTERFACE PORTB = microblaze_0_d_bram_ctrl_1_BRAM_PORT
+ BUS_INTERFACE PORTA = microblaze_0_i_bram_ctrl_1_BRAM_PORT
+END
+
 BEGIN axi_bram_ctrl
  PARAMETER INSTANCE = axi_bram_ctrl_0
  PARAMETER HW_VER = 1.03.a
@@ -206,59 +276,14 @@ BEGIN bram_block
  PORT BRAM_Dout_B = axi_bram_ctrl_0_bram_block_1_BRAM_Dout_B
 END
 
-BEGIN axi_spi
- PARAMETER INSTANCE = axi_spi_pga
- PARAMETER HW_VER = 1.02.a
- PARAMETER C_NUM_SS_BITS = 2
- PARAMETER C_BASEADDR = 0x40a00000
- PARAMETER C_HIGHADDR = 0x40a0ffff
+BEGIN axi_gpio
+ PARAMETER INSTANCE = axi_gpio_0
+ PARAMETER HW_VER = 1.01.b
+ PARAMETER C_GPIO_WIDTH = 16
+ PARAMETER C_BASEADDR = 0x40000000
+ PARAMETER C_HIGHADDR = 0x4000ffff
  BUS_INTERFACE S_AXI = axi4lite_0
  PORT S_AXI_ACLK = clk_100_0000MHz
- PORT SCK = axi_spi_pga_SCK
- PORT MISO = axi_spi_pga_MISO
- PORT MOSI = axi_spi_pga_MOSI
- PORT SS = axi_spi_pga_SS
-END
-
-BEGIN axi_spi
- PARAMETER INSTANCE = axi_spi_adc
- PARAMETER HW_VER = 1.02.a
- PARAMETER C_BASEADDR = 0x40a40000
- PARAMETER C_HIGHADDR = 0x40a4ffff
- BUS_INTERFACE S_AXI = axi4lite_0
- PORT S_AXI_ACLK = clk_100_0000MHz
- PORT SCK = axi_spi_adc_SCK
- PORT MOSI = axi_spi_adc_MOSI
- PORT SS = axi_spi_adc_SS
-END
-
-BEGIN axi_spi
- PARAMETER INSTANCE = axi_spi_dac
- PARAMETER HW_VER = 1.02.a
- PARAMETER C_BASEADDR = 0x40a80000
- PARAMETER C_HIGHADDR = 0x40a8ffff
- BUS_INTERFACE S_AXI = axi4lite_0
- PORT S_AXI_ACLK = clk_100_0000MHz
- PORT SCK = axi_spi_dac_SCK
- PORT MOSI = axi_spi_dac_MOSI
- PORT SS = axi_spi_dac_SS
-END
-
-BEGIN axi_bram_ctrl
- PARAMETER INSTANCE = axi_bram_ctrl_1
- PARAMETER HW_VER = 1.03.a
- PARAMETER C_S_AXI_BASEADDR = 0x00010000
- PARAMETER C_S_AXI_HIGHADDR = 0x0001FFFF
- BUS_INTERFACE S_AXI = axi4lite_0
- BUS_INTERFACE BRAM_PORTA = axi_bram_ctrl_1_BRAM_PORTA
- BUS_INTERFACE BRAM_PORTB = axi_bram_ctrl_1_BRAM_PORTB
- PORT S_AXI_ACLK = clk_100_0000MHz
-END
-
-BEGIN bram_block
- PARAMETER INSTANCE = axi_bram_ctrl_1_bram_block_1
- PARAMETER HW_VER = 1.00.a
- BUS_INTERFACE PORTA = axi_bram_ctrl_1_BRAM_PORTA
- BUS_INTERFACE PORTB = axi_bram_ctrl_1_BRAM_PORTB
+ PORT GPIO_IO = axi_gpio_0_GPIO_IO
 END
 
