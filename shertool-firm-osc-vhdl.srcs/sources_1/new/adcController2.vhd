@@ -45,14 +45,17 @@ entity AdcController2 is
         ADC_DATA  : in std_logic_vector(7 downto 0);
         SAMPLING_START: in std_logic;
         BUFFER_SIZE : in std_logic_vector(31 downto 0);
-        TRIGGER :in std_logic
+        TRIGGER :in std_logic;
+		  READ_READY :out std_logic;
+		  READ_START_ADDRESS: out std_logic_vector(31 downto 0)
     );
 end AdcController2;
  
 architecture Behavioral of AdcController2 is
     signal address: unsigned(15 downto 0) := (others => '0');
     signal data: unsigned(31 downto 0) := (others => '0');
-    signal writeCounter  : unsigned(15 downto 0) := (others => '0');
+    signal preTriggerCounter  : unsigned(15 downto 0) := (others => '0');
+    signal postTriggerCounter  : unsigned(15 downto 0) := (others => '0');
      
     TYPE STATE_TYPE IS (idle, sampling, postTrig);
     signal state   : STATE_TYPE;
@@ -61,25 +64,29 @@ architecture Behavioral of AdcController2 is
     TYPE STATE_WRITE IS (w0, w1, w2, w3);
     signal writeState  : STATE_WRITE;
     signal triggered :std_logic := '0';
-
+	 signal startSampling: std_logic := '0'; 
 begin
-
-    RamProc: process(CLOCK, RESET) is
+	 RamProc: process(CLOCK, RESET) is
       begin
         if reset = '1' then
             state <= idle;
 			   writeState  <= w0;
 				address <=(others => '0');
 				data <= (others => '0');
-				writeCounter <= (others => '0');
+				preTriggerCounter <= (others => '0');
+				postTriggerCounter <= (others => '0');
 				dataBuffer <= (others => '0');
 				triggered<= '0';
 				RAM_WEN <= (others => '0');
 				RAM_Dout <= (others => '0');
 				RAM_Addr <= (others => '0');
+				startSampling <= '0';
+				READ_START_ADDRESS <= (others => '0');
         elsif rising_edge(clock) then
             case state is
-                when idle=>
+				
+					 -- In this state the PC can read the data, and request a new sampling
+                when idle =>
                     if SAMPLING_START = '1' then
                         state <= sampling;
                     else
@@ -90,47 +97,51 @@ begin
 						  RAM_Dout <= (others => '0');
                     RAM_WEN <= "0000";
                     RAM_Addr <= (others => '0');
-                when sampling=>
-                
-                case writeState is
-                    when w0=>
-                        dataBuffer <= ADC_DATA & "000000000000000000000000";
-                        writeState <= w1;
-                        RAM_WEN <= "0000";
-                    when w1=>
-                        dataBuffer <=  dataBuffer OR( "00000000" & ADC_DATA & "0000000000000000" );
-                         writeState <= w2;
-                         RAM_WEN <= "0000";
-                    when w2=>
-                        dataBuffer <= dataBuffer OR("0000000000000000" &  ADC_DATA & "00000000" );
-                        writeState <= w3;
-                        RAM_WEN <= "0000";
-                    when w3=>
-                        dataBuffer <= dataBuffer OR("000000000000000000000000" & ADC_DATA );
-                        RAM_Addr <= "0000000000000000" & std_logic_vector(address);
-                        RAM_Dout <= dataBuffer;
-                        writeState <= w0;
-                        RAM_WEN <= "1111";
-                        
-                        if (address >= unsigned(BUFFER_SIZE)) then
-                            address <= to_unsigned(0, 16);
-                        else
-                            address <= address+4;
-                        end if;
-                        
-                        if triggered = '1' then
-                            state <= postTrig;
-                        else
-                            state <= sampling;
-                        end if;
-                    end case;
+						  preTriggerCounter <=(others => '0');
+
+						when sampling =>
+						 -- The ADC is sampling in the circular buffer before the trigger
+						 case writeState is
+							  when w0=>
+									dataBuffer <= ADC_DATA & "000000000000000000000000";
+									writeState <= w1;
+									RAM_WEN <= "0000";
+							  when w1=>
+									dataBuffer <=  dataBuffer OR( "00000000" & ADC_DATA & "0000000000000000" );
+									 writeState <= w2;
+									 RAM_WEN <= "0000";
+							  when w2=>
+									dataBuffer <= dataBuffer OR("0000000000000000" &  ADC_DATA & "00000000" );
+									writeState <= w3;
+									RAM_WEN <= "0000";
+							  when w3=>
+									RAM_Addr <= "0000000000000000" & std_logic_vector(address);
+									RAM_Dout <= dataBuffer OR("000000000000000000000000" & ADC_DATA );
+									writeState <= w0;
+									RAM_WEN <= "1111";
+									
+									if (address >= unsigned(BUFFER_SIZE)-4) then
+										 address <= to_unsigned(0, 16);
+									else
+										 address <= address+4;
+									end if;
+									
+									preTriggerCounter <= preTriggerCounter + 4;
+									
+									if triggered = '1' AND ( preTriggerCounter >= unsigned("0" & BUFFER_SIZE(31 downto 1) )-4) then
+										 state <= postTrig;
+									else
+										 state <= sampling;
+									end if;
+						  end case;
                     
                     if TRIGGER = '1' then
                         triggered <= '1';
                     end if;
                     
-                    writeCounter <= to_unsigned(0, 16);
+                    postTriggerCounter <= to_unsigned(0, 16);
                     
+  					 -- The ADC is fulling the second half of the circular buffer
                 when postTrig=>
                 
                     case writeState is
@@ -139,43 +150,56 @@ begin
                         writeState <= w1;
                         RAM_WEN <= "0000";
                     when w1=>
-                        dataBuffer <= dataBuffer OR( ADC_DATA & "0000000000000000" );
+                        dataBuffer <= dataBuffer OR( "00000000" & ADC_DATA & "0000000000000000" );
                          writeState <= w2;
                          RAM_WEN <= "0000";
                     when w2=>
-                        dataBuffer <= dataBuffer OR( ADC_DATA & "00000000" );
+                        dataBuffer <= dataBuffer OR("0000000000000000" &  ADC_DATA & "00000000" );
                         writeState <= w3;
                         RAM_WEN <= "0000";
                     when w3=>
-                        dataBuffer <= dataBuffer OR( ADC_DATA );
                         RAM_Addr <= "0000000000000000" & std_logic_vector(address);
-                        RAM_Dout <= dataBuffer;
+								READ_START_ADDRESS <= "0000000000000000" & std_logic_vector(address);
+
+                        RAM_Dout <= dataBuffer OR("000000000000000000000000" & ADC_DATA );
                         writeState <= w0;
                         RAM_WEN <= "1111";
-                        writeCounter <= writeCounter + 1;
-                        
-                        if (address >= unsigned(BUFFER_SIZE)) then
-                            address <= to_unsigned(0, 16);
-                        else
-                            address <= address+4;
-                        end if;
-                        
-                        if ( writeCounter > unsigned("0" & BUFFER_SIZE(31 downto 1))) then
+                        postTriggerCounter <= postTriggerCounter + 4;
+								
+                        if (address >= unsigned(BUFFER_SIZE)-4) then
+										 address <= to_unsigned(0, 16);
+								else
+										 address <= address+4;
+								end if;
+									
+                        if ( postTriggerCounter >= unsigned("0" & BUFFER_SIZE(31 downto 1) )-4) then
                             state <= idle;
+
+
                         end if;
-                        
                     end case;
-                    
                 end case;
-            --RAM_Addr <= "0000000000000000" & std_logic_vector(address);
-            --RAM_Dout <= "0000000000000000" & std_logic_vector(data);
-            --address <= address + 4;
-            --data <= data + 4;
             
+				-- A transition of SAMPLING_START must occur during the idle state
+				if (SAMPLING_START = '1') and (startSampling = '0') and (state= idle )then
+					startSampling <= '1';
+				elsif (state /= idle) then
+					startSampling <= '0';
+				end if;
+				
+				if (state = idle)then
+					READ_READY <= '1';
+
+				else 
+					READ_READY <= '0';
+				end if;
+				
+
          end if;
       end process RamProc;
     
     RAM_Clk <= CLOCK;
     RAM_Rst <= '0';
     RAM_EN <= '1';
+
 end Behavioral;
