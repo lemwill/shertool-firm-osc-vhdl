@@ -1,0 +1,10 @@
+##############################################################################
+## Filename:          C:/Users/Administrateur/Documents/shertool-firm-osc-vhdl/shertool-firm-osc-vhdl.srcs/sources_1/edk/osc_microblaze/pcores/adccontroller3_v1_00_a/data/adccontroller3_v2_1_0.pao
+## Description:       Peripheral Analysis Order
+## Date:              Mon Dec 01 19:09:20 2014 (by Create and Import Peripheral Wizard)
+##############################################################################
+
+lib proc_common_v3_00_a  all 
+lib axi_lite_ipif_v1_01_a  all 
+lib adccontroller3_v1_00_a user_logic vhdl
+lib adccontroller3_v1_00_a adccontroller3 vhdl

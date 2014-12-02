@@ -46,8 +46,10 @@ entity AdcController2 is
         SAMPLING_START: in std_logic;
         BUFFER_SIZE : in std_logic_vector(31 downto 0);
         TRIGGER :in std_logic;
-		  READ_READY :out std_logic;
-		  READ_START_ADDRESS: out std_logic_vector(31 downto 0)
+		READ_READY :out std_logic;
+		READ_START_ADDRESS: out std_logic_vector(31 downto 0);
+		DOWN_SAMPLING : in std_logic_vector(31 downto 0)
+		
     );
 end AdcController2;
  
@@ -65,6 +67,7 @@ architecture Behavioral of AdcController2 is
     signal writeState  : STATE_WRITE;
     signal triggered :std_logic := '0';
 	 signal startSampling: std_logic := '0'; 
+	 signal startSamplingChange: std_logic := '0';
 begin
 	 RamProc: process(CLOCK, RESET) is
       begin
@@ -87,7 +90,7 @@ begin
 				
 					 -- In this state the PC can read the data, and request a new sampling
                 when idle =>
-                    if SAMPLING_START = '1' then
+                    if startSamplingChange = '1' then
                         state <= sampling;
                     else
                         state <= idle;
@@ -159,9 +162,9 @@ begin
                         RAM_WEN <= "0000";
                     when w3=>
                         RAM_Addr <= "0000000000000000" & std_logic_vector(address);
-								READ_START_ADDRESS <= "0000000000000000" & std_logic_vector(address);
+								READ_START_ADDRESS <= "0000000000000000" & std_logic_vector(address+4);
 
-                        RAM_Dout <= dataBuffer OR("000000000000000000000000" & ADC_DATA );
+                        RAM_Dout <= dataBuffer OR ("000000000000000000000000" & ADC_DATA );
                         writeState <= w0;
                         RAM_WEN <= "1111";
                         postTriggerCounter <= postTriggerCounter + 4;
@@ -180,12 +183,14 @@ begin
                     end case;
                 end case;
             
+				startSampling  <= SAMPLING_START;
+
 				-- A transition of SAMPLING_START must occur during the idle state
-				if (SAMPLING_START = '1') and (startSampling = '0') and (state= idle )then
-					startSampling <= '1';
-				elsif (state /= idle) then
-					startSampling <= '0';
-				end if;
+				--if (SAMPLING_START = '1') and (startSampling = '0') and (state= idle )then
+				--	startSampling <= '1';
+				--elsif (state /= idle) then
+			--		startSampling <= '0';
+			--	end if;
 				
 				if (state = idle)then
 					READ_READY <= '1';
@@ -197,7 +202,9 @@ begin
 
          end if;
       end process RamProc;
-    
+
+	 startSamplingChange <=  (startSampling xor SAMPLING_START) AND SAMPLING_START;
+
     RAM_Clk <= CLOCK;
     RAM_Rst <= '0';
     RAM_EN <= '1';

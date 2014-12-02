@@ -8,6 +8,12 @@
         <Attr Name="UsedInImplementation" Val="1"/>
       </FileInfo>
     </File>
+    <File Path="$PDATADIR/oscilloscope/designprops.xml">
+      <FileInfo SFType="CompatPartsDb"/>
+    </File>
+    <File Path="$PDATADIR/oscilloscope/usercols.xml">
+      <FileInfo SFType="UserColsDb"/>
+    </File>
     <Config>
       <Option Name="TargetConstrsFile" Val="$PSRCDIR/oscilloscope/new/oscilloscope.ucf"/>
       <Option Name="ConstrsType" Val="UCF"/>

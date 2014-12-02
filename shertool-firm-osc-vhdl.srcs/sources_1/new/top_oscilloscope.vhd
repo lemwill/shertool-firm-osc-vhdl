@@ -89,7 +89,9 @@ COMPONENT Oscilloscope
       Ch1AcCoup_N: inout std_logic;
       Ch2Relay_N: inout std_logic;
       Ch2AcCoup_N: inout std_logic;
-      Ldac: inout std_logic
+      Ldac: inout std_logic;
+      AdcData: in std_Logic_vector(7 downto 0);
+      AdcClk: in std_logic
     );
   END COMPONENT;
 
@@ -138,7 +140,9 @@ begin
       Ch1AcCoup_N => CH1_ACCOUP,
       Ch2Relay_N => CH2_RELAY,
       Ch2AcCoup_N => CH2_ACCOUP,
-      Ldac => DAC_LDAC
+      Ldac => DAC_LDAC,
+      AdcData => adcData(0),
+      AdcClk => adcClk
     );
     
     --------------- ADC DATA ------------------

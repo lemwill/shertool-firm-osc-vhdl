@@ -1,0 +1,12 @@
+-batch 
+-create adccontroller3 
+-ver 1.00.a 
+-dir "C:\Users\Administrateur\Documents\shertool-firm-osc-vhdl\shertool-firm-osc-vhdl.srcs\sources_1\edk\osc_microblaze" 
+-lang vhdl 
+-bus axi4lite s 
+-rst 
+-reg 6 
+-xps 
+-ise 
+-bfmsim all
+-driver 

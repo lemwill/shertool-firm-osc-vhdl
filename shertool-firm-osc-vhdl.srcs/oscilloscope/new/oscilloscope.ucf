@@ -1,5 +1,5 @@
 # Input alim is 3.3 instead of 2.5 default
-CONFIG VCCAUX=3.3;
+CONFIG VCCAUX  = 3.3;
 
 # 100 Ohm termination and IOSTANDARD (Already LVDS_25 by default) (http://www.xilinx.com/support/documentation/user_guides/ug381.pdf)
 #NET <I/O_NAME> DIFF_TERM = "TRUE";
@@ -13,23 +13,47 @@ CONFIG VCCAUX=3.3;
 #NET "CLOCK_100MHZ"   LOC = "L15"; # Bank = 1, Pin name = IO_L42P_GCLK7_M1UDM, Type = GCLK, Sch name = GCLK
 
 
-NET "DAC_SCLK" LOC = "E16"| IOSTANDARD = LVTTL; # Bank = 1, Pin name = IO_L33P_A15
-NET "DAC_SYNC" LOC = "E18"| IOSTANDARD = LVTTL; # Bank = 1, Pin name = IO_L33N_A14
-NET "DAC_RST" LOC = "D17"| IOSTANDARD = LVTTL; # Bank = 1, Pin name = IO_L31P_A19
-NET "DAC_DIN" LOC = "D18"| IOSTANDARD = LVTTL; # Bank = 1, Pin name = IO_L31N_A18
-NET "DAC_LDAC" LOC = "C17" | IOSTANDARD = LVTTL;
-NET "DAC_EN" LOC = "C18" | IOSTANDARD = LVTTL;
+# Bank = 1, Pin name = IO_L33P_A15
+NET "DAC_SCLK" LOC = E16;
+NET "DAC_SCLK" IOSTANDARD = LVTTL;
+# Bank = 1, Pin name = IO_L33N_A14
+NET "DAC_SYNC" LOC = E18;
+NET "DAC_SYNC" IOSTANDARD = LVTTL;
+# Bank = 1, Pin name = IO_L31P_A19
+NET "DAC_RST" LOC = D17;
+NET "DAC_RST" IOSTANDARD = LVTTL;
+# Bank = 1, Pin name = IO_L31N_A18
+NET "DAC_DIN" LOC = D18;
+NET "DAC_DIN" IOSTANDARD = LVTTL;
+NET "DAC_LDAC" LOC = C17;
+NET "DAC_LDAC" IOSTANDARD = LVTTL;
+NET "DAC_EN" LOC = C18;
+NET "DAC_EN" IOSTANDARD = LVTTL;
 
-NET "CH1_RELAY" LOC = "F14" | IOSTANDARD = LVTTL;
-NET "CH2_RELAY" LOC = "G14" | IOSTANDARD = LVTTL;
-NET "CH1_ACCOUP" LOC = "F18" | IOSTANDARD = LVTTL;
-NET "CH2_ACCOUP" LOC = "G16" | IOSTANDARD = LVTTL;
+NET "CH1_RELAY" LOC = F14;
+NET "CH1_RELAY" IOSTANDARD = LVTTL;
+NET "CH2_RELAY" LOC = G14;
+NET "CH2_RELAY" IOSTANDARD = LVTTL;
+NET "CH1_ACCOUP" LOC = F18;
+NET "CH1_ACCOUP" IOSTANDARD = LVTTL;
+NET "CH2_ACCOUP" LOC = G16;
+NET "CH2_ACCOUP" IOSTANDARD = LVTTL;
 
-NET "CH1_PGA_CS"   LOC = "F17"| IOSTANDARD = LVTTL; # Bank = 1, Pin name = IO_L35P_A11
-NET "CH2_PGA_MOSI" LOC = "H14"| IOSTANDARD = LVTTL; # Bank = 1, Pin name = IO_L37P_A7
-NET "CH2_PGA_MISO" LOC = "H15"| IOSTANDARD = LVTTL; # Bank = 1, Pin name = IO_L37P_A7
-NET "CH2_PGA_SCK"  LOC = "N15"| IOSTANDARD = LVTTL; # Bank = 1, Pin name = IO_L37N_A6
-NET "CH2_PGA_CS"   LOC = "G18"| IOSTANDARD = LVTTL; # Bank = 1, Pin name = IO_L38N_A4
+# Bank = 1, Pin name = IO_L35P_A11
+NET "CH1_PGA_CS" LOC = F17;
+NET "CH1_PGA_CS" IOSTANDARD = LVTTL;
+# Bank = 1, Pin name = IO_L37P_A7
+NET "CH2_PGA_MOSI" LOC = H14;
+NET "CH2_PGA_MOSI" IOSTANDARD = LVTTL;
+# Bank = 1, Pin name = IO_L37P_A7
+NET "CH2_PGA_MISO" LOC = H15;
+NET "CH2_PGA_MISO" IOSTANDARD = LVTTL;
+# Bank = 1, Pin name = IO_L37N_A6
+NET "CH2_PGA_SCK" LOC = N15;
+NET "CH2_PGA_SCK" IOSTANDARD = LVTTL;
+# Bank = 1, Pin name = IO_L38N_A4
+NET "CH2_PGA_CS" LOC = G18;
+NET "CH2_PGA_CS" IOSTANDARD = LVTTL;
 
 
 #NET "SWITCH" LOC = "D14"; # Bank = 0, Pin name = IO_L65P_SCP3,      	Sch name = SW1
@@ -38,82 +62,198 @@ NET "CH2_PGA_CS"   LOC = "G18"| IOSTANDARD = LVTTL; # Bank = 1, Pin name = IO_L3
 #NET "LED<2>" LOC = "N14"; # Bank = 1, Pin name = IO_L53N_VREF, 	   Sch name = LD2
 
 #------------------------ Bank 1 ---------------------------
-NET "CH1_TRIG_P"        LOC = "L12"   | IOSTANDARD = LVDS_25; # Bank = 1, Pin name = IO_L40P_GCLK11_M1A5,        Sch name = E-GTXCLK
-NET "CH1_TRIG_N"        LOC = "L13"   | IOSTANDARD = LVDS_25; # Bank = 1, Pin name = IO_L40N_GCLK10_M1A6, Sch name = AUD-BIT-CLK
-NET "CH2_TRIG_P"        LOC = "K15"   | IOSTANDARD = LVDS_25; # Bank = 1, Pin name = IO_L41P_GCLK9_IRDY1_M1RASN, Sch name = E-RXCLK
-NET "CH2_TRIG_N"        LOC = "K16"   | IOSTANDARD = LVDS_25; # Bank = 1, Pin name = IO_L41N_GCLK8_M1CASN,       Sch name = E-TXCLK
-NET "EXT_TRIG_P"        LOC = "L15"   | IOSTANDARD = LVDS_25; # Bank = 1, Pin name = IO_L42P_GCLK7_M1UDM, Type = GCLK, Sch name = GCLK
-NET "EXT_TRIG_N"        LOC = "L16"   | IOSTANDARD = LVDS_25; # Bank = 1, Pin name = IO_L42N_GCLK6_TRDY1_M1LDM,  Sch name = E-INT
-NET "Main_FPGA_CLK_P"   LOC = "H17"   | IOSTANDARD = LVDS_25; # Bank = 1, Pin name = IO_L43P_GCLK5_M1DQ4, Sch name = TMDS-RX-CLK_P
-NET "Main_FPGA_CLK_N"   LOC = "H18"   | IOSTANDARD = LVDS_25; # Bank = 1, Pin name = IO_L43N_GCLK4_M1DQ5, Sch name = TMDS-RX-CLK_N
+# Bank = 1, Pin name = IO_L40P_GCLK11_M1A5,        Sch name = E-GTXCLK
+NET "CH1_TRIG_P" LOC = L12;
+NET "CH1_TRIG_P" IOSTANDARD = LVDS_25;
+# Bank = 1, Pin name = IO_L40N_GCLK10_M1A6, Sch name = AUD-BIT-CLK
+NET "CH1_TRIG_N" LOC = L13;
+NET "CH1_TRIG_N" IOSTANDARD = LVDS_25;
+# Bank = 1, Pin name = IO_L41P_GCLK9_IRDY1_M1RASN, Sch name = E-RXCLK
+NET "CH2_TRIG_P" LOC = K15;
+NET "CH2_TRIG_P" IOSTANDARD = LVDS_25;
+# Bank = 1, Pin name = IO_L41N_GCLK8_M1CASN,       Sch name = E-TXCLK
+NET "CH2_TRIG_N" LOC = K16;
+NET "CH2_TRIG_N" IOSTANDARD = LVDS_25;
+# Bank = 1, Pin name = IO_L42P_GCLK7_M1UDM, Type = GCLK, Sch name = GCLK
+NET "EXT_TRIG_P" LOC = L15;
+NET "EXT_TRIG_P" IOSTANDARD = LVDS_25;
+# Bank = 1, Pin name = IO_L42N_GCLK6_TRDY1_M1LDM,  Sch name = E-INT
+NET "EXT_TRIG_N" LOC = L16;
+NET "EXT_TRIG_N" IOSTANDARD = LVDS_25;
+# Bank = 1, Pin name = IO_L43P_GCLK5_M1DQ4, Sch name = TMDS-RX-CLK_P
+NET "Main_FPGA_CLK_P" LOC = H17;
+NET "Main_FPGA_CLK_P" IOSTANDARD = LVDS_25;
+# Bank = 1, Pin name = IO_L43N_GCLK4_M1DQ5, Sch name = TMDS-RX-CLK_N
+NET "Main_FPGA_CLK_N" LOC = H18;
+NET "Main_FPGA_CLK_N" IOSTANDARD = LVDS_25;
 
 
 #------------------------ Bank 2 ---------------------------
-NET "SYNC_IN_P"         LOC = "T9"  | IOSTANDARD = LVDS_25;  # Bank = 2,  Pin name = IO_L32P_GCLK29, Sch name = JA-CLK_P
-NET "SYNC_IN_N"         LOC = "V9"  | IOSTANDARD = LVDS_25;  # Bank = 2,  Pin name = IO_L32N_GCLK28, Sch name = JA-CLK_N
-NET "TEST_CLK_OUT_P"    LOC = "R8"  | IOSTANDARD = LVDS_33;  # Bank = 2,  Pin name = IO_L31P_GCLK31_D14,     Sch name = EXP-IO12_P
-NET "TEST_CLK_OUT_N"    LOC = "T8"  | IOSTANDARD = LVDS_33;  # Bank = 2,  Pin name = IO_L31N_GCLK30_D15,     Sch name = EXP-IO12_N
+# Bank = 2,  Pin name = IO_L32P_GCLK29, Sch name = JA-CLK_P
+NET "SYNC_IN_P" LOC = T9;
+NET "SYNC_IN_P" IOSTANDARD = LVDS_25;
+# Bank = 2,  Pin name = IO_L32N_GCLK28, Sch name = JA-CLK_N
+NET "SYNC_IN_N" LOC = V9;
+NET "SYNC_IN_N" IOSTANDARD = LVDS_25;
+# Bank = 2,  Pin name = IO_L31P_GCLK31_D14,     Sch name = EXP-IO12_P
+NET "TEST_CLK_OUT_P" LOC = R8;
+NET "TEST_CLK_OUT_P" IOSTANDARD = LVDS_33;
+# Bank = 2,  Pin name = IO_L31N_GCLK30_D15,     Sch name = EXP-IO12_N
+NET "TEST_CLK_OUT_N" LOC = T8;
+NET "TEST_CLK_OUT_N" IOSTANDARD = LVDS_33;
 #LVDS3_3
 
-NET "UART_RX"  LOC = "N8" | IOSTANDARD  = LVTTL;  # Bank = 2,  Pin name = IO_L40N,        		Sch name = EXP-IO13_N
-NET "UART_TX" LOC = "U8" | IOSTANDARD  = LVTTL;  # Bank = 2,  Pin name = IO_L41P,        		Sch name = EXP-IO14_P
+# Bank = 2,  Pin name = IO_L40N,        		Sch name = EXP-IO13_N
+NET "UART_RX" LOC = N8;
+NET "UART_RX" IOSTANDARD = LVTTL;
+# Bank = 2,  Pin name = IO_L41P,        		Sch name = EXP-IO14_P
+NET "UART_TX" LOC = U8;
+NET "UART_TX" IOSTANDARD = LVTTL;
 
 #------------------------ Bank 0 ---------------------------
 ## ADC LVDS CH1 Output
-NET "ADC_DATA_P<0><0>"  LOC = "B2"| IOSTANDARD = LVDS_25; # Bank = 0, Pin name = IO_L2P
-NET "ADC_DATA_N<0><0>"  LOC = "A2"| IOSTANDARD = LVDS_25; # Bank = 0, Pin name = IO_L2N
-NET "ADC_DATA_P<0><1>"  LOC = "B3"| IOSTANDARD = LVDS_25; # Bank = 0, Pin name = IO_L4P
-NET "ADC_DATA_N<0><1>"  LOC = "A3"| IOSTANDARD = LVDS_25; # Bank = 0, Pin name = IO_L4N
-NET "ADC_DATA_P<0><2>"  LOC = "B4"| IOSTANDARD = LVDS_25; # Bank = 0, Pin name = IO_L5P
-NET "ADC_DATA_N<0><2>"  LOC = "A4"| IOSTANDARD = LVDS_25; # Bank = 0, Pin name = IO_L5N
-NET "ADC_DATA_P<0><3>"  LOC = "C5"| IOSTANDARD = LVDS_25; # Bank = 0, Pin name = IO_L6P
-NET "ADC_DATA_N<0><3>"  LOC = "A5"| IOSTANDARD = LVDS_25; # Bank = 0, Pin name = IO_L6N
-NET "ADC_DATA_P<0><4>"  LOC = "D6"| IOSTANDARD = LVDS_25; # Bank = 0, Pin name = IO_L3P
-NET "ADC_DATA_N<0><4>"  LOC = "C6"| IOSTANDARD = LVDS_25; # Bank = 0, Pin name = IO_L3N
-NET "ADC_DATA_P<0><5>"  LOC = "B6"| IOSTANDARD = LVDS_25; # Bank = 0, Pin name = IO_L8P
-NET "ADC_DATA_N<0><5>"  LOC = "A6"| IOSTANDARD = LVDS_25; # Bank = 0, Pin name = IO_L8N_VREF
-NET "ADC_DATA_P<0><6>"  LOC = "C7"| IOSTANDARD = LVDS_25; # Bank = 0, Pin name = IO_L10P
-NET "ADC_DATA_N<0><6>"  LOC = "A7"| IOSTANDARD = LVDS_25; # Bank = 0, Pin name = IO_L10N
-NET "ADC_DATA_P<0><7>"  LOC = "D8"| IOSTANDARD = LVDS_25; # Bank = 0, Pin name = IO_L11P
-NET "ADC_DATA_N<0><7>"  LOC = "C8"| IOSTANDARD = LVDS_25; # Bank = 0, Pin name = IO_L11N
+# Bank = 0, Pin name = IO_L2P
+NET "ADC_DATA_P<0>[0]" LOC = B2;
+NET "ADC_DATA_P<0>[0]" IOSTANDARD = LVDS_25;
+# Bank = 0, Pin name = IO_L2N
+NET "ADC_DATA_N<0>[0]" LOC = A2;
+NET "ADC_DATA_N<0>[0]" IOSTANDARD = LVDS_25;
+# Bank = 0, Pin name = IO_L4P
+NET "ADC_DATA_P<0>[1]" LOC = B3;
+NET "ADC_DATA_P<0>[1]" IOSTANDARD = LVDS_25;
+# Bank = 0, Pin name = IO_L4N
+NET "ADC_DATA_N<0>[1]" LOC = A3;
+NET "ADC_DATA_N<0>[1]" IOSTANDARD = LVDS_25;
+# Bank = 0, Pin name = IO_L5P
+NET "ADC_DATA_P<0>[2]" LOC = B4;
+NET "ADC_DATA_P<0>[2]" IOSTANDARD = LVDS_25;
+# Bank = 0, Pin name = IO_L5N
+NET "ADC_DATA_N<0>[2]" LOC = A4;
+NET "ADC_DATA_N<0>[2]" IOSTANDARD = LVDS_25;
+# Bank = 0, Pin name = IO_L6P
+NET "ADC_DATA_P<0>[3]" LOC = C5;
+NET "ADC_DATA_P<0>[3]" IOSTANDARD = LVDS_25;
+# Bank = 0, Pin name = IO_L6N
+NET "ADC_DATA_N<0>[3]" LOC = A5;
+NET "ADC_DATA_N<0>[3]" IOSTANDARD = LVDS_25;
+# Bank = 0, Pin name = IO_L3P
+NET "ADC_DATA_P<0>[4]" LOC = D6;
+NET "ADC_DATA_P<0>[4]" IOSTANDARD = LVDS_25;
+# Bank = 0, Pin name = IO_L3N
+NET "ADC_DATA_N<0>[4]" LOC = C6;
+NET "ADC_DATA_N<0>[4]" IOSTANDARD = LVDS_25;
+# Bank = 0, Pin name = IO_L8P
+NET "ADC_DATA_P<0>[5]" LOC = B6;
+NET "ADC_DATA_P<0>[5]" IOSTANDARD = LVDS_25;
+# Bank = 0, Pin name = IO_L8N_VREF
+NET "ADC_DATA_N<0>[5]" LOC = A6;
+NET "ADC_DATA_N<0>[5]" IOSTANDARD = LVDS_25;
+# Bank = 0, Pin name = IO_L10P
+NET "ADC_DATA_P<0>[6]" LOC = C7;
+NET "ADC_DATA_P<0>[6]" IOSTANDARD = LVDS_25;
+# Bank = 0, Pin name = IO_L10N
+NET "ADC_DATA_N<0>[6]" LOC = A7;
+NET "ADC_DATA_N<0>[6]" IOSTANDARD = LVDS_25;
+# Bank = 0, Pin name = IO_L11P
+NET "ADC_DATA_P<0>[7]" LOC = D8;
+NET "ADC_DATA_P<0>[7]" IOSTANDARD = LVDS_25;
+# Bank = 0, Pin name = IO_L11N
+NET "ADC_DATA_N<0>[7]" LOC = C8;
+NET "ADC_DATA_N<0>[7]" IOSTANDARD = LVDS_25;
 
 ## ADC LVDS CH2 Output
-NET "ADC_DATA_P<1><0>"  LOC = "C13"| IOSTANDARD = LVDS_25; # Bank = 0, Pin name = IO_L50P
-NET "ADC_DATA_N<1><0>"  LOC = "A13"| IOSTANDARD = LVDS_25; # Bank = 0, Pin name = IO_L50N
-NET "ADC_DATA_P<1><1>"  LOC = "B14"| IOSTANDARD = LVDS_25; # Bank = 0, Pin name = IO_L62P
-NET "ADC_DATA_N<1><1>"  LOC = "A14"| IOSTANDARD = LVDS_25; # Bank = 0, Pin name = IO_L62N_VREF
-NET "ADC_DATA_P<1><2>"  LOC = "D11"| IOSTANDARD = LVDS_25; # Bank = 0, Pin name = IO_L36P_GCLK15
-NET "ADC_DATA_N<1><2>"  LOC = "C11"| IOSTANDARD = LVDS_25; # Bank = 0, Pin name = IO_L36N_GCLK14
-NET "ADC_DATA_P<1><3>"  LOC = "B12"| IOSTANDARD = LVDS_25; # Bank = 0, Pin name = IO_L41P
-NET "ADC_DATA_N<1><3>"  LOC = "A12"| IOSTANDARD = LVDS_25; # Bank = 0, Pin name = IO_L41N
-NET "ADC_DATA_P<1><4>"  LOC = "B11"| IOSTANDARD = LVDS_25; # Bank = 0, Pin name = IO_L39P
-NET "ADC_DATA_N<1><4>"  LOC = "A11"| IOSTANDARD = LVDS_25; # Bank = 0, Pin name = O_L39N
-NET "ADC_DATA_P<1><5>"  LOC = "C10"| IOSTANDARD = LVDS_25; # Bank = 0, Pin name = IO_L37P_GCLK13
-NET "ADC_DATA_N<1><5>"  LOC = "A10"| IOSTANDARD = LVDS_25; # Bank = 0, Pin name = IO_L37N_GCLK12
-NET "ADC_DATA_P<1><6>"  LOC = "G9" | IOSTANDARD = LVDS_25; # Bank = 0, Pin name = IO_L38P
-NET "ADC_DATA_N<1><6>"  LOC = "F9" | IOSTANDARD = LVDS_25; # Bank = 0, Pin name = IO_L38N_VREF
-NET "ADC_DATA_P<1><7>"  LOC = "D9" | IOSTANDARD = LVDS_25; # Bank = 0, Pin name = IO_L34P_GCLK19
-NET "ADC_DATA_N<1><7>"  LOC = "C9" | IOSTANDARD = LVDS_25; # Bank = 0, Pin name = IO_L34N_GCLK18
+# Bank = 0, Pin name = IO_L50P
+NET "ADC_DATA_P<1>[0]" LOC = C13;
+NET "ADC_DATA_P<1>[0]" IOSTANDARD = LVDS_25;
+# Bank = 0, Pin name = IO_L50N
+NET "ADC_DATA_N<1>[0]" LOC = A13;
+NET "ADC_DATA_N<1>[0]" IOSTANDARD = LVDS_25;
+# Bank = 0, Pin name = IO_L62P
+NET "ADC_DATA_P<1>[1]" LOC = B14;
+NET "ADC_DATA_P<1>[1]" IOSTANDARD = LVDS_25;
+# Bank = 0, Pin name = IO_L62N_VREF
+NET "ADC_DATA_N<1>[1]" LOC = A14;
+NET "ADC_DATA_N<1>[1]" IOSTANDARD = LVDS_25;
+# Bank = 0, Pin name = IO_L36P_GCLK15
+NET "ADC_DATA_P<1>[2]" LOC = D11;
+NET "ADC_DATA_P<1>[2]" IOSTANDARD = LVDS_25;
+# Bank = 0, Pin name = IO_L36N_GCLK14
+NET "ADC_DATA_N<1>[2]" LOC = C11;
+NET "ADC_DATA_N<1>[2]" IOSTANDARD = LVDS_25;
+# Bank = 0, Pin name = IO_L41P
+NET "ADC_DATA_P<1>[3]" LOC = B12;
+NET "ADC_DATA_P<1>[3]" IOSTANDARD = LVDS_25;
+# Bank = 0, Pin name = IO_L41N
+NET "ADC_DATA_N<1>[3]" LOC = A12;
+NET "ADC_DATA_N<1>[3]" IOSTANDARD = LVDS_25;
+# Bank = 0, Pin name = IO_L39P
+NET "ADC_DATA_P<1>[4]" LOC = B11;
+NET "ADC_DATA_P<1>[4]" IOSTANDARD = LVDS_25;
+# Bank = 0, Pin name = O_L39N
+NET "ADC_DATA_N<1>[4]" LOC = A11;
+NET "ADC_DATA_N<1>[4]" IOSTANDARD = LVDS_25;
+# Bank = 0, Pin name = IO_L37P_GCLK13
+NET "ADC_DATA_P<1>[5]" LOC = C10;
+NET "ADC_DATA_P<1>[5]" IOSTANDARD = LVDS_25;
+# Bank = 0, Pin name = IO_L37N_GCLK12
+NET "ADC_DATA_N<1>[5]" LOC = A10;
+NET "ADC_DATA_N<1>[5]" IOSTANDARD = LVDS_25;
+# Bank = 0, Pin name = IO_L38P
+NET "ADC_DATA_P<1>[6]" LOC = G9;
+NET "ADC_DATA_P<1>[6]" IOSTANDARD = LVDS_25;
+# Bank = 0, Pin name = IO_L38N_VREF
+NET "ADC_DATA_N<1>[6]" LOC = F9;
+NET "ADC_DATA_N<1>[6]" IOSTANDARD = LVDS_25;
+# Bank = 0, Pin name = IO_L34P_GCLK19
+NET "ADC_DATA_P<1>[7]" LOC = D9;
+NET "ADC_DATA_P<1>[7]" IOSTANDARD = LVDS_25;
+# Bank = 0, Pin name = IO_L34N_GCLK18
+NET "ADC_DATA_N<1>[7]" LOC = C9;
+NET "ADC_DATA_N<1>[7]" IOSTANDARD = LVDS_25;
 
 ## ADC Clock pins
-NET "ADC_DCLK_P"   LOC = "B9" | IOSTANDARD = LVDS_25;  # Bank = 0, Pin name = IO_L35P_GCLK17
-NET "ADC_DCLK_N"   LOC = "A9" | IOSTANDARD = LVDS_25;  # Bank = 0, Pin name = IO_L35N_GCLK16
+# Bank = 0, Pin name = IO_L35P_GCLK17
+NET "ADC_DCLK_P" LOC = B9;
+NET "ADC_DCLK_P" IOSTANDARD = LVDS_25;
+# Bank = 0, Pin name = IO_L35N_GCLK16
+NET "ADC_DCLK_N" LOC = A9;
+NET "ADC_DCLK_N" IOSTANDARD = LVDS_25;
 
 ## ADC ?? pins
-NET "ADC_OUT_R_P"  LOC = "B8" | IOSTANDARD = LVDS_25; # Bank = 0, Pin name = IO_L33P
-NET "ADC_OUT_R_N"  LOC = "A8" | IOSTANDARD = LVDS_25; # Bank = 0, Pin name = IO_L33N
+# Bank = 0, Pin name = IO_L33P
+NET "ADC_OUT_R_P" LOC = B8;
+NET "ADC_OUT_R_P" IOSTANDARD = LVDS_25;
+# Bank = 0, Pin name = IO_L33N
+NET "ADC_OUT_R_N" LOC = A8;
+NET "ADC_OUT_R_N" IOSTANDARD = LVDS_25;
 
 
 #------------------------ Bank 1 ---------------------------
 ## ADC Control pins
-NET "ADC_CAL_ACTIVE"  LOC = "J18" | IOSTANDARD = LVTTL; # Bank = 1, Pin name = IO_L44N_A2_M1DQ7
-NET "ADC_CAL"         LOC = "K17" | IOSTANDARD = LVTTL; # Bank = 1, Pin name = IO_L45P_A1_M1LDQS
-NET "ADC_PDQ"  		  LOC = "K18" | IOSTANDARD = LVTTL; # Bank = 1, Pin name = IO_L45N_A0_M1LDQSN
-NET "FPGA_ADC_PD"         LOC = "L17" | IOSTANDARD = LVTTL; # Bank = 1, Pin name = IO_L46P_FCS_B_M1DQ2
-NET "FPGA_ADC_CSC"		  LOC = "L18" | IOSTANDARD = LVTTL; # Bank = 1, Pin name = IO_L46N_FOE_B_M1DQ3
-NET "FPGA_ADC_RST"		  LOC = "M18" | IOSTANDARD = LVTTL; # Bank = 1, Pin name = IO_L47N_LDC_M1DQ1
-NET "FPGA_ADC_SCLK"		  LOC = "N17" | IOSTANDARD = LVTTL; # Bank = 1, Pin name = IO_L48P_HDC_M1DQ8
-NET "FPGA_ADC_SDA"        LOC = "N18" | IOSTANDARD = LVTTL; # Bank = 1, Pin name = IO_L48N_M1DQ9
+# Bank = 1, Pin name = IO_L44N_A2_M1DQ7
+NET "ADC_CAL_ACTIVE" LOC = J18;
+NET "ADC_CAL_ACTIVE" IOSTANDARD = LVTTL;
+# Bank = 1, Pin name = IO_L45P_A1_M1LDQS
+NET "ADC_CAL" LOC = K17;
+NET "ADC_CAL" IOSTANDARD = LVTTL;
+# Bank = 1, Pin name = IO_L45N_A0_M1LDQSN
+NET "ADC_PDQ" LOC = K18;
+NET "ADC_PDQ" IOSTANDARD = LVTTL;
+# Bank = 1, Pin name = IO_L46P_FCS_B_M1DQ2
+NET "FPGA_ADC_PD" LOC = L17;
+NET "FPGA_ADC_PD" IOSTANDARD = LVTTL;
+# Bank = 1, Pin name = IO_L46N_FOE_B_M1DQ3
+NET "FPGA_ADC_CSC" LOC = L18;
+NET "FPGA_ADC_CSC" IOSTANDARD = LVTTL;
+# Bank = 1, Pin name = IO_L47N_LDC_M1DQ1
+NET "FPGA_ADC_RST" LOC = M18;
+NET "FPGA_ADC_RST" IOSTANDARD = LVTTL;
+# Bank = 1, Pin name = IO_L48P_HDC_M1DQ8
+NET "FPGA_ADC_SCLK" LOC = N17;
+NET "FPGA_ADC_SCLK" IOSTANDARD = LVTTL;
+# Bank = 1, Pin name = IO_L48N_M1DQ9
+NET "FPGA_ADC_SDA" LOC = N18;
+NET "FPGA_ADC_SDA" IOSTANDARD = LVTTL;
 
 
 
@@ -317,3 +457,5 @@ NET "FPGA_ADC_SDA"        LOC = "N18" | IOSTANDARD = LVTTL; # Bank = 1, Pin name
 # NET "UartRx" LOC = "A16"; # Bank = 0, Pin name = IO_L66N_SCP0, Sch name = USBB-RXD
 # NET "UartTx" LOC = "B16"; # Bank = 0, Pin name = IO_L66P_SCP1, Sch name = USBB-TXD
 #
+NET "ADC_DCLK_P" PERIOD = 500 MHz;
+NET "Main_FPGA_CLK_P" PERIOD = 100 MHz;

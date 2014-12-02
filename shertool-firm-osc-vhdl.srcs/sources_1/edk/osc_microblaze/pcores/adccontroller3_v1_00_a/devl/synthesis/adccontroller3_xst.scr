@@ -1,0 +1,12 @@
+run
+-opt_level 2
+-opt_mode speed
+-ifmt mixed
+-ifn "C:\Users\Administrateur\Documents\shertool-firm-osc-vhdl\shertool-firm-osc-vhdl.srcs\sources_1\edk\osc_microblaze\pcores\adccontroller3_v1_00_a\devl\synthesis\adccontroller3_xst.prj"
+-top adccontroller3
+-p virtex6
+-ofn "C:\Users\Administrateur\Documents\shertool-firm-osc-vhdl\shertool-firm-osc-vhdl.srcs\sources_1\edk\osc_microblaze\pcores\adccontroller3_v1_00_a\devl\synthesis\adccontroller3_xst.ngc"
+-iobuf NO
+-rtlview YES
+-hierarchy_separator /
+-work_lib adccontroller3_v1_00_a

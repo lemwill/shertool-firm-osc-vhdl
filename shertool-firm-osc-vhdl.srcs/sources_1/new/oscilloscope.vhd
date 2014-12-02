@@ -32,13 +32,33 @@ entity Oscilloscope is
     Ch1AcCoup_N: inout std_logic;
     Ch2Relay_N: inout std_logic;
     Ch2AcCoup_N: inout std_logic;
-    Ldac: inout std_logic
-    
+    Ldac: inout std_logic;
+    AdcData: in std_Logic_vector(7 downto 0);
+    AdcClk: in std_logic
   );
 end Oscilloscope;
 
 architecture STRUCTURE of Oscilloscope is
-
+    COMPONENT adcCtrlTest
+    Port (
+        RAM_Rst   : out std_logic;
+        RAM_Clk   : out std_logic;
+        RAM_EN    : out std_logic;
+        RAM_WEN   : out std_logic_vector(0 to 3);
+        RAM_Addr  : out std_logic_vector(0 to 31);
+        RAM_Din   : in  std_logic_vector(0 to 31);
+        RAM_Dout  : out std_logic_vector(0 to 31);
+        CLOCK     : in std_logic;
+        ADC_DATA  : in std_logic_vector(7 downto 0);
+        READ_READY :out std_logic;
+        READ_START_ADDRESS: out std_logic_vector(31 downto 0);
+        SAMPLING_START: in std_logic;
+        BUFFER_SIZE : in std_logic_vector(31 downto 0);
+        DOWN_SAMPLING : in std_logic_vector(31 downto 0);
+        STATE : out std_logic_vector(31 downto 0)
+  );
+  
+  END COMPONENT;
   COMPONENT ClockPrescaler 	
   Port ( 
       Clock100MHz : in  STD_LOGIC;
@@ -47,18 +67,18 @@ architecture STRUCTURE of Oscilloscope is
       );
   END COMPONENT;
 
-  component AdcController 
-  Port (
-      RAM_Rst   : out std_logic;
-      RAM_Clk   : out std_logic;
-      RAM_EN    : out std_logic;
-      RAM_WEN   : out std_logic_vector(0 to 3);
-      RAM_Addr  : out std_logic_vector(0 to 31);
-      RAM_Din   : in  std_logic_vector(0 to 31);
-      RAM_Dout  : out std_logic_vector(0 to 31);
-      CLOCK     : in std_logic
-  );
-  end component;
+--  component AdcController 
+--  Port (
+--      RAM_Rst   : out std_logic;
+--      RAM_Clk   : out std_logic;
+--      RAM_EN    : out std_logic;
+--      RAM_WEN   : out std_logic_vector(0 to 3);
+--      RAM_Addr  : out std_logic_vector(0 to 31);
+--      RAM_Din   : in  std_logic_vector(0 to 31);
+--      RAM_Dout  : out std_logic_vector(0 to 31);
+--      CLOCK     : in std_logic
+--  );
+--  end component;
   
    component osc_microblaze 
     port (
@@ -83,7 +103,12 @@ architecture STRUCTURE of Oscilloscope is
       axi_spi_adc_SCK_pin : out std_logic;
       axi_spi_adc_MOSI_pin : out std_logic;
       axi_spi_adc_SS_pin : out std_logic;
-      axi_gpio_0_GPIO_IO_pin : inout std_logic_vector(15 downto 0)
+      axi_gpio_0_GPIO_IO_pin : inout std_logic_vector(15 downto 0);
+      axi_gpio_0_GPIO2_IO_O_pin : out std_logic_vector(0 to 0);
+      adccontroller3_0_READ_ADDRESS_pin : in std_logic_vector(31 downto 0);
+      adccontroller3_0_STATE_pin : in std_logic_vector(31 downto 0);
+      adccontroller3_0_BUFFER_SIZE_pin : out std_logic_vector(31 downto 0);
+      adccontroller3_0_DOWN_SAMPLING_pin : out std_logic_vector(31 downto 0)
 
     );
   end component;
@@ -97,8 +122,15 @@ architecture STRUCTURE of Oscilloscope is
   signal RAM_WEN   : std_logic_vector(0 to 3);
   signal RAM_Addr  : std_logic_vector(0 to 31);
   signal RAM_Din   : std_logic_vector(0 to 31);
-  signal RAM_Dout : std_logic_vector(0 to 31);
+  signal RAM_Dout  : std_logic_vector(0 to 31);
 
+  signal readReady: std_logic;
+  signal readStartAddress: std_logic_vector(31 downto 0);
+  signal bufferSize: std_logic_vector(31 downto 0);
+  signal downSampling: std_logic_vector(31 downto 0);
+  signal state: std_logic_vector(31 downto 0);
+  signal samplingStart: std_logic;
+  
 begin
   osc_microblaze_i : osc_microblaze
     port map (
@@ -135,11 +167,27 @@ begin
       axi_gpio_0_GPIO_IO_pin(12) => Ch1PgaCs,
       axi_gpio_0_GPIO_IO_pin(13) => Ch2PgaCs,
       axi_gpio_0_GPIO_IO_pin(14) => DacEn,
-      axi_gpio_0_GPIO_IO_pin(15) => AdcCsc
-      
+      axi_gpio_0_GPIO_IO_pin(15) => AdcCsc,
+      axi_gpio_0_GPIO2_IO_O_pin(0) => samplingStart,
+      adccontroller3_0_READ_ADDRESS_pin => readStartAddress,
+      adccontroller3_0_STATE_pin => state,
+      adccontroller3_0_BUFFER_SIZE_pin => bufferSize,
+      adccontroller3_0_DOWN_SAMPLING_pin => downSampling
     );
     
-    adcController_i: AdcController
+    --    adcController_i: AdcController
+    --    port map (
+    --        RAM_Rst => RAM_Rst,
+    --        RAM_Clk => RAM_Clk,
+    --        RAM_EN => RAM_EN,
+    --        RAM_WEN => RAM_WEN,
+    --        RAM_Addr => RAM_Addr,
+    --        RAM_Din => RAM_Din,
+    --        RAM_Dout => RAM_Dout,
+    --        CLOCK => Clock100Mhz
+    --    );
+    
+    adcController_i: adcCtrlTest
     port map (
         RAM_Rst => RAM_Rst,
         RAM_Clk => RAM_Clk,
@@ -148,8 +196,16 @@ begin
         RAM_Addr => RAM_Addr,
         RAM_Din => RAM_Din,
         RAM_Dout => RAM_Dout,
-        CLOCK => Clock100Mhz
+        CLOCK => AdcClk,
+        READ_READY => readReady,
+        ADC_DATA => AdcData,
+        SAMPLING_START => samplingStart,
+        READ_START_ADDRESS=> readStartAddress,
+        BUFFER_SIZE => bufferSize,
+        DOWN_SAMPLING => downSampling,
+        STATE => state
     );
+    
 
     CLOCK_PRESCALER_1 : ClockPrescaler PORT MAP(Clock100MHz => clock100Mhz,
                                                 Reset => '0',

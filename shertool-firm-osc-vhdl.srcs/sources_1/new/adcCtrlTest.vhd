@@ -39,8 +39,13 @@ entity adcCtrlTest is
       RAM_Din   : in  std_logic_vector(0 to 31);
       RAM_Dout  : out std_logic_vector(0 to 31);
       CLOCK     : in std_logic;
-		READ_READY :out std_logic;
-	   READ_START_ADDRESS: out std_logic_vector(31 downto 0)
+      ADC_DATA  : in std_logic_vector(7 downto 0);
+	  READ_READY :out std_logic;
+	  READ_START_ADDRESS: out std_logic_vector(31 downto 0);
+      SAMPLING_START: in std_logic;
+      BUFFER_SIZE : in std_logic_vector(31 downto 0);
+      DOWN_SAMPLING : in std_logic_vector(31 downto 0);
+      STATE : out std_logic_vector(31 downto 0)
 	);
 end adcCtrlTest;
 
@@ -62,8 +67,9 @@ COMPONENT AdcController2
         SAMPLING_START: in std_logic;
         BUFFER_SIZE : in std_logic_vector(31 downto 0);
         TRIGGER :in std_logic;
-		  READ_READY :out std_logic;
-		  READ_START_ADDRESS: out std_logic_vector(31 downto 0)
+		READ_READY :out std_logic;
+		READ_START_ADDRESS: out std_logic_vector(31 downto 0);
+        DOWN_SAMPLING : in std_logic_vector(31 downto 0)
     );
 END COMPONENT;
 
@@ -83,38 +89,40 @@ begin
 			  RAM_Dout  => RAM_Dout,
 			  CLOCK     => CLOCK,
 			  RESET     => '0',
-			  ADC_DATA  => std_logic_vector(data),
-			  SAMPLING_START  => samplingStart,
-			  BUFFER_SIZE => X"00000020",
+			  ADC_DATA  =>  ADC_DATA,
+			  SAMPLING_START  => SAMPLING_START,
+			  BUFFER_SIZE => X"00000400",
 			  TRIGGER => trig,
 			  READ_READY => READ_READY,
-			  READ_START_ADDRESS => READ_START_ADDRESS
+			  READ_START_ADDRESS => READ_START_ADDRESS,
+			  DOWN_SAMPLING => DOWN_SAMPLING
         );
+    STATE <= (others => '0');
+--  process(CLOCK)
+--	begin 
+--		if rising_edge(CLOCK) then
+--			data <= data +1;
+			
+--    		if(counter > 200) then
+--				samplingStart <= '1';
+--			else
+--				samplingStart <= '0';
+--			end if;
+			
+--			if(counter = 607) then
+--				trig <= '1';
+--			else
+--				trig <= '0';
+--			end if;
 
-	process(CLOCK)
-	begin 
-		if rising_edge(CLOCK) then
-			data <= data +1;
+--			if(counter >= 536870912) then
+--				counter <= to_unsigned(0,32); 
+--			else
+--				counter <= counter +1;
+--			end if;
 			
-    		if(counter > 200) then
-				samplingStart <= '1';
-			else
-				samplingStart <= '0';
-			end if;
-			
-			if(counter = 200) then
-				trig <= '1';
-			else
-				trig <= '0';
-			end if;
-
-			if(counter >= 1000) then
-				counter <= to_unsigned(0,32); 
-			else
-				counter <= counter +1;
-			end if;
-			
-		end if;
-	end process;
+--		end if;
+--	end process;
+    trig <= '1';
 
 end Behavioral;

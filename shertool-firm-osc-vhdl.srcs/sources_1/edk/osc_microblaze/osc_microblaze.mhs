@@ -33,6 +33,11 @@
  PORT axi_bram_ctrl_0_bram_block_1_BRAM_Din_B_pin = axi_bram_ctrl_0_bram_block_1_BRAM_Din_B, DIR = O, VEC = [0:31]
  PORT axi_bram_ctrl_0_bram_block_1_BRAM_Dout_B_pin = axi_bram_ctrl_0_bram_block_1_BRAM_Dout_B, DIR = I, VEC = [0:31]
  PORT axi_gpio_0_GPIO_IO_pin = axi_gpio_0_GPIO_IO, DIR = IO, VEC = [15:0]
+ PORT adccontroller3_0_READ_ADDRESS_pin = net_adccontroller3_0_READ_ADDRESS_pin, DIR = I, VEC = [31:0]
+ PORT adccontroller3_0_STATE_pin = net_adccontroller3_0_STATE_pin, DIR = I, VEC = [31:0]
+ PORT adccontroller3_0_BUFFER_SIZE_pin = adccontroller3_0_BUFFER_SIZE, DIR = O, VEC = [31:0]
+ PORT adccontroller3_0_DOWN_SAMPLING_pin = adccontroller3_0_DOWN_SAMPLING, DIR = O, VEC = [31:0]
+ PORT axi_gpio_0_GPIO2_IO_O_pin = axi_gpio_0_GPIO2_IO_O, DIR = O, VEC = [0:0]
 
 
 BEGIN proc_sys_reset
@@ -171,7 +176,7 @@ END
 BEGIN axi_uartlite
  PARAMETER INSTANCE = RS232
  PARAMETER HW_VER = 1.02.a
- PARAMETER C_BAUDRATE = 921600
+ PARAMETER C_BAUDRATE = 9600
  PARAMETER C_DATA_BITS = 8
  PARAMETER C_USE_PARITY = 0
  PARAMETER C_ODD_PARITY = 1
@@ -206,6 +211,7 @@ BEGIN axi_spi
  PARAMETER C_NUM_TRANSFER_BITS = 32
  PARAMETER C_BASEADDR = 0x40a40000
  PARAMETER C_HIGHADDR = 0x40a4ffff
+ PARAMETER C_SCK_RATIO = 704
  BUS_INTERFACE S_AXI = axi4lite_0
  PORT S_AXI_ACLK = clk_100_0000MHz
  PORT MOSI_O = axi_spi_adc_MOSI_O
@@ -280,10 +286,28 @@ BEGIN axi_gpio
  PARAMETER INSTANCE = axi_gpio_0
  PARAMETER HW_VER = 1.01.b
  PARAMETER C_GPIO_WIDTH = 16
+ PARAMETER C_GPIO2_WIDTH = 1
  PARAMETER C_BASEADDR = 0x40000000
  PARAMETER C_HIGHADDR = 0x4000ffff
+ PARAMETER C_IS_DUAL = 1
+ PARAMETER C_ALL_INPUTS_2 = 0
  BUS_INTERFACE S_AXI = axi4lite_0
  PORT S_AXI_ACLK = clk_100_0000MHz
  PORT GPIO_IO = axi_gpio_0_GPIO_IO
+ PORT GPIO_IO_I = axi_gpio_0_GPIO_IO_I
+ PORT GPIO2_IO_O = axi_gpio_0_GPIO2_IO_O
+END
+
+BEGIN adccontroller3
+ PARAMETER INSTANCE = adccontroller3_0
+ PARAMETER HW_VER = 1.00.a
+ PARAMETER C_BASEADDR = 0x79400000
+ PARAMETER C_HIGHADDR = 0x7940ffff
+ BUS_INTERFACE S_AXI = axi4lite_0
+ PORT S_AXI_ACLK = clk_100_0000MHz
+ PORT READ_ADDRESS = net_adccontroller3_0_READ_ADDRESS_pin
+ PORT STATE = net_adccontroller3_0_STATE_pin
+ PORT BUFFER_SIZE = adccontroller3_0_BUFFER_SIZE
+ PORT DOWN_SAMPLING = adccontroller3_0_DOWN_SAMPLING
 END
 
