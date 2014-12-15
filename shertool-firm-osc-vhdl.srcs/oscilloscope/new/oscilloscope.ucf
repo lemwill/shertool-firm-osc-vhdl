@@ -104,11 +104,11 @@ NET "TEST_CLK_OUT_N" IOSTANDARD = LVDS_33;
 #LVDS3_3
 
 # Bank = 2,  Pin name = IO_L40N,        		Sch name = EXP-IO13_N
-NET "UART_RX" LOC = N8;
-NET "UART_RX" IOSTANDARD = LVTTL;
-# Bank = 2,  Pin name = IO_L41P,        		Sch name = EXP-IO14_P
-NET "UART_TX" LOC = U8;
+NET "UART_TX" LOC = N8;
 NET "UART_TX" IOSTANDARD = LVTTL;
+# Bank = 2,  Pin name = IO_L41P,        		Sch name = EXP-IO14_P
+NET "UART_RX" LOC = U8;
+NET "UART_RX" IOSTANDARD = LVTTL;
 
 #------------------------ Bank 0 ---------------------------
 ## ADC LVDS CH1 Output
